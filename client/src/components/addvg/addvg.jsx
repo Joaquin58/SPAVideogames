@@ -101,6 +101,7 @@ export default function Anewvideogame() {
             return alert('Ups faltó algo')
         }
         dispatch(postVideogame(input))
+        alert('Videojuego agregado')
         setInput({
             name: '',
             description: '',
@@ -116,7 +117,6 @@ export default function Anewvideogame() {
     }
     return (
 
-        //! validar que todos los inputs sean llenados o desde la base de datos que se llenen por default
 
         <div className={addvgstyles.container}>
 
@@ -166,13 +166,14 @@ export default function Anewvideogame() {
                 {errors.rating ? (<p className={addvgstyles.error}>{errors.rating}</p>) : delete errors.rating}
 
                 <div className={addvgstyles.labelcontend}>
-                    <label className={addvgstyles.label}>Imagen</label>
+                    <label className={addvgstyles.label}>Imagen url</label>
                 </div>
                 <input type="text"
                     value={input.image}
                     name='image'
                     onChange={handleChange}
                     className={addvgstyles.inputtext}
+                    placeholder="https://example.com/videojuegos.jpg"
                 />
                 <div className={addvgstyles.labelcontend}>
                     <label className={addvgstyles.label}>Description</label>

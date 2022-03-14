@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Router } = require('express');
 const axios = require('axios')
 const { Op } = require('Sequelize')
-const { Videogame, Genre /*, Plataforma*/ } = require('../db')
+const { Videogame, Genre} = require('../db')
 const { API_KEY } = process.env
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -18,7 +18,6 @@ const ENDPAPI3 = 'https://api.rawg.io/api/genres'
 const ENDPAPI4 = 'https://api.rawg.io/api/games/'
 const ENDPAPI5 = 'https://api.rawg.io/api/platforms'
 
-// router.get('/test', testapi) //.rutas de test de la api 
 
 let allgames = [] //. declaramos el arreglo donde podremos almacenar los juegos que usaremos para que en primera instancia los carge
 //. para que al final retornemos el mismo arreglo ya concatenado
@@ -45,7 +44,6 @@ async function traertodo() {
     allgames = [...page1D, ...page2D, ...page3D, ...page4D, ...page5D]
     return allgames // retorna el arreglo de todos los juegos con los valores que queremos
 }
-
 
 function reducedata(array) {
     return array.map(Obj => {
@@ -115,7 +113,7 @@ router.get('/videogames', async (req, res) => {
                 }
             }
         })
-        const allrequest = [...reducedata(allrequestBd).reverse(), ...allrequestApi]
+        const allrequest = [...reducedata(allrequestBd), ...allrequestApi]
         return res.json(allrequest)
     } else {
         try {
@@ -201,9 +199,9 @@ router.post('/videogame', async (req, res) => {
             await newvideogame.addGenres(genresid)
             // !la s al final del addGenre(s) me permite agregar un arreglo de id's o un id en solitario
             // * de esta manera asosiamos los genros de manera eficiente sin bucles raros 
-            return res.status(200).json({ created: created, newvideogame })
+            return res.status(200).json({ created })
         } else {
-            return res.status(200).json({ created: created, newvideogame })
+            return res.status(200).json({ created })
         }
     } catch (err) {
         console.log(err)
