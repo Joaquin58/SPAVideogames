@@ -1,0 +1,229 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useHistory } from "react-router-dom";
+import {
+    postVideogame,
+    getGenres,
+    getPlatforms
+} from '../../redux/actions'
+import addvgstyles from './addvg.module.css'
+const validateerrors = (input) => {
+    let errors = {}
+    if (!input.name) {
+        errors.name = '*Se requiere el nombre'
+    }
+    if (!input.description) {
+        errors.description = '*Se requiere una descripción'
+    }
+    if (input.rating > 5) {
+        errors.rating = '*El valor debe ser inferior o igual a 5'
+    }
+    if (input.rating < 0) {
+        errors.rating = '*El valor debe ser mayor o igual a 0'
+    }
+    if (input.platforms.length === 0) {
+        errors.platforms = '*Introdusca las consolas compatibles'
+    }
+    return errors
+}
+export default function Anewvideogame() {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const genres = useSelector(state => state.genres)
+    const Platfoms = useSelector(state => state.plataformas)
+
+    const [input, setInput] = useState({
+        name: '',
+        description: '',
+        released: '',
+        rating: '',
+        image: '',
+        platforms: [],
+        genres: [],
+        genresid: [],
+    })
+    const [errors, serErrors] = useState({})
+
+    useEffect(() => {
+        dispatch(getGenres())
+        dispatch(getPlatforms())
+    }, [dispatch])
+
+    const handleChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        })
+        serErrors(validateerrors({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
+    }
+    const handleCheckpt = (e) => {
+        if (e.target.checked) {
+            setInput({
+                ...input,
+                platforms: [...input.platforms, e.target.name]
+            })
+            serErrors(validateerrors({
+                ...input,
+                platforms: [...input.platforms, e.target.name]
+            }))
+        } else {
+            setInput({
+                ...input,
+                platforms: input.platforms.filter(pt => pt !== e.target.name),
+            })
+            serErrors(validateerrors({
+                ...input,
+                platforms: input.platforms.filter(pt => pt !== e.target.name),
+            }))
+        }
+    }
+    const handleCheckgn = (e) => {
+        if (e.target.checked) {
+            setInput({
+                ...input,
+                genresid: [...input.genresid, e.target.value],
+                genres: [...input.genres, e.target.name]
+            })
+        } else {
+            setInput({
+                ...input,
+                genres: input.genres.filter(pt => pt !== e.target.name),
+                genresid: input.genresid.filter(id => parseInt(id) !== parseInt(e.target.value))
+            })
+        }
+    }
+    const hanldeSubmit = (e) => {
+        e.preventDefault()
+        if (Object.keys(errors).length > 0) {
+            return alert('Ups faltó algo')
+        }
+        dispatch(postVideogame(input))
+        setInput({
+            name: '',
+            description: '',
+            released: '',
+            rating: '',
+            image: '',
+            platforms: [],
+            genres: [],
+            genresid: [],
+        })
+        serErrors({})
+        history.push('/home')
+    }
+    return (
+
+        //! validar que todos los inputs sean llenados o desde la base de datos que se llenen por default
+
+        <div className={addvgstyles.container}>
+
+            <h1 className={addvgstyles.tytle}>Agrega tu videojuego</h1>
+            <form className={addvgstyles.form} onSubmit={e => hanldeSubmit(e)}>
+                <Link to='/home'>
+                    <button className={addvgstyles.buttonhome}>Home</button>
+                </Link>
+                <div className={addvgstyles.labelcontend}>
+                    <label className={addvgstyles.label}>Nombre</label>
+                </div>
+                <input type="text"
+                    value={input.name}
+                    name='name'
+                    onChange={handleChange}
+                    placeholder='Nombre del juego*'
+                    className={addvgstyles.inputtext}
+                />
+                {errors.name ? (<p className={addvgstyles.error}>{errors.name}</p>) : delete errors.name}
+
+
+
+
+                <div className={addvgstyles.labelcontend}>
+                    <label className={addvgstyles.label}>Released</label>
+                </div>
+                <input type="Date"
+                    value={input.released}
+                    name='released'
+                    onChange={handleChange}
+                    className={addvgstyles.inputtext}
+                />
+
+
+                <div className={addvgstyles.labelcontend}>
+                    <label className={addvgstyles.label}>Rating</label>
+                </div>
+                <input type="number"
+                    value={input.rating}
+                    name='rating'
+                    onChange={handleChange}
+                    min={0} max={5}
+                    step="0.01"
+                    placeholder='min: 0 - max: 5'
+                    className={addvgstyles.inputtext}
+                />
+                {errors.rating ? (<p className={addvgstyles.error}>{errors.rating}</p>) : delete errors.rating}
+
+                <div className={addvgstyles.labelcontend}>
+                    <label className={addvgstyles.label}>Imagen</label>
+                </div>
+                <input type="text"
+                    value={input.image}
+                    name='image'
+                    onChange={handleChange}
+                    className={addvgstyles.inputtext}
+                />
+                <div className={addvgstyles.labelcontend}>
+                    <label className={addvgstyles.label}>Description</label>
+                </div>
+
+                <textarea value={input.description}
+                    name='description'
+                    onChange={handleChange}
+                    placeholder='Descripción del juego*'
+                    className={addvgstyles.description}
+                />
+                {errors.description ? (<p className={addvgstyles.error}>{errors.description}</p>) : delete errors.description}
+                <fieldset className={addvgstyles.checked}>
+                    <legend className={addvgstyles.legend}>Platfomrs</legend>
+                    {Platfoms && Platfoms.map((pt) => {
+                        return <div className={addvgstyles.input} key={pt.id}>
+                            <input type='checkbox'
+                                className={addvgstyles.checkbox}
+                                onChange={handleCheckpt}
+                                key={pt.id}
+                                name={pt.name}
+                                value={pt.id}
+                            /><label
+                                className={addvgstyles.labelch}
+                            >{pt.name}</label>
+                        </div>
+                    })}
+                    {errors.platforms ? (<p className={addvgstyles.error}>{errors.platforms}</p>) : delete errors.platforms}
+                </fieldset>
+                <fieldset className={addvgstyles.checked} >
+                    <legend className={addvgstyles.legend}>Genres</legend>
+                    {genres && genres.map((gen) => {
+                        return <div className={addvgstyles.input} key={gen.id}>
+                            <input type='checkbox'
+                                onChange={handleCheckgn}
+                                key={gen.id}
+                                name={gen.name}
+                                value={gen.id}
+                                id={gen.name}
+                                className={addvgstyles.checkbox}
+                            /><label
+                                className={addvgstyles.labelch}
+                            >{gen.name}</label>
+                        </div>
+                    })}
+                </fieldset>
+                <button className={addvgstyles.buttonsubmit} type="Submit">Submit</button>
+                {console.log('errors:')}
+                {console.log(errors)}
+                {console.log(input)}
+            </form>
+        </div>
+    )
+}
