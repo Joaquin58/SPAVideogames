@@ -8,8 +8,7 @@ import {
   GET_VG_BY_ID,
   ORD_BYRT,
   POST_VG,
-  GET_PT,
-  BACK_ALFABET_ORDER
+  GET_PT
 } from './actions'
 
 const initialState = {
@@ -118,10 +117,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state, 
         plataformas: payload
-      }
-      case  BACK_ALFABET_ORDER:
-      return{
-        ...state, payload
       }
     default:
       return state;

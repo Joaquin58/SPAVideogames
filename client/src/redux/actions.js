@@ -9,8 +9,7 @@ export const FLV_BYGN = 'FLV_BYGN'              //* Filtro por genero
 export const ORD_BYNM = 'ORD_BYNM'              //* ordenado por nombre
 export const ORD_BYRT = 'ORD_BYRT'              //* ordenado por nombre
 export const GET_PT = 'GET_PT'                  //* obtener plataformas desponibles
-export const BACK_ALFABET_ORDER = 'BACK_ALFABET_ORDER'  //* ORDENADO DEL BACK
-// export const SAVE_NAME = 'SAVE_NAME'
+
 
 const URL = 'http://localhost:3001'
 
@@ -105,13 +104,5 @@ export const getPlatforms = () => {
         const response = await axios.get(`${URL}/platforms`)
         const payload = response.data
         dispatch({ type: GET_PT, payload })
-    }
-}
-
-export const orderVideogamesByNameBack = (order)=>{
-    return async(dispatch)=>{
-        const {data} = await axios.get(`${URL}videogames?alfabet=${order}`) 
-        const payload = data
-        dispatch({type: BACK_ALFABET_ORDER, payload })
     }
 }

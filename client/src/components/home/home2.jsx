@@ -5,7 +5,7 @@ import {
     getVideogames,
     getGenres,
     orderVideogamesByName,
-    orderVideogamesByRaiting
+    orderVideogamesByRaiting,
 } from '../../redux/actions.js'
 
 import SearchBar from "../Search/SearchBar.jsx";
