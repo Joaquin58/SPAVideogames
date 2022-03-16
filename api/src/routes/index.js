@@ -2,7 +2,7 @@ require('dotenv').config();
 const { Router } = require('express');
 const axios = require('axios')
 const { Op } = require('Sequelize')
-const { Videogame, Genre} = require('../db')
+const { Videogame, Genre } = require('../db')
 const { API_KEY } = process.env
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -67,14 +67,13 @@ function reducebyid(Obj) {
         description: Obj.description,
         released: Obj.released,
         rating: Obj.rating,
-        platforms: Obj.platforms.map(({platform})=> platform.name)
+        platforms: Obj.platforms.map(({ platform }) => platform.name)
     }
 }
 
 async function prechargeGenres() {
     try {
         const { data } = await axios.get(`${ENDPAPI3}?key=${API_KEY}`)
-
         data.results.map(({ id, name }) => {
             Genre.findOrCreate({
                 where: { id: id, name: name }
@@ -88,56 +87,82 @@ async function prechargeGenres() {
 async function reducePlatfomr() {
     try {
         const { data } = await axios.get(`${ENDPAPI5}?key=${API_KEY}`)
-        return data.results.map(({id, name}) => {
+        return data.results.map(({ id, name }) => {
             return {
                 id,
                 name
-            }    
+            }
         })
     } catch (error) {
         return error
     }
 }
 
+function orderbyname(orden, all){
+    const nameorder = orden === 'asd' ? all.sort(function (a, b) {
+        const onename = a.name.toLowerCase()
+        const twoname = b.name.toLowerCase()
+        if (onename > twoname) {
+          return 1;
+        }
+        if (onename < twoname) {
+          return -1;
+        }
+
+        return 0;
+      }) : all.sort(function (a, b) {
+        const onename = a.name.toLowerCase()
+        const twoname = b.name.toLowerCase()
+        if (onename < twoname) {
+          return 1;
+        }
+        if (onename > twoname) {
+          return -1;
+        }
+        return 0;
+      })
+      return nameorder
+}
+
 router.get('/videogames', async (req, res) => {
-    const { name } = req.query
+    const { name, order } = req.query
     if (!name) {
         const allrequestApi = await traertodo()
         const allrequestBd = await Videogame.findAll({
             include: {
                 model: Genre,
                 attributes: ['name'],
-             
+
                 through: {
                     attributes: []
                 }
             }
         })
+
         const allrequest = [...reducedata(allrequestBd), ...allrequestApi]
-        return res.json(allrequest)
+        order ? res.json(orderbyname(order, allrequest)) : res.json(allrequest)
     } else {
         try {
-        const { data } = await axios.get(`${ENDPAPI2}${name}&key=${API_KEY}`)
-        const resultadosApi = data.results
-        const nameBd = await Videogame.findAll({
-            where: { name: { [Op.iLike]: `%${name}%` } },
-            include: { 
-                model: Genre,
-                attributes: ['name'],
-                through: {
-                    attributes: []
+            const { data } = await axios.get(`${ENDPAPI2}${name}&key=${API_KEY}`)
+            const resultadosApi = data.results
+            const nameBd = await Videogame.findAll({
+                where: { name: { [Op.iLike]: `%${name}%` } },
+                include: {
+                    model: Genre,
+                    attributes: ['name'],
+                    through: {
+                        attributes: []
+                    }
                 }
+            })
+            if (resultadosApi.length > 0 || nameBd.length > 0) {
+                order ? res.json(orderbyname(order, [...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, 15)])) : res.send([...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, 15)])
+            } else {
+                return res.status(404).send('no encontrado')
             }
-        })
-        if (resultadosApi.length > 0 || nameBd.length > 0) {
-            return res.send([...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, 15)])
-        } else {
-            return res.send('no encontrado')
-        }
         } catch (error) {
             res.send(error)
         }
-        
     }
 })
 
@@ -180,7 +205,7 @@ router.get('/genres', async (req, res) => {
 })
 
 router.post('/videogame', async (req, res) => {
-    const { name, description, released, rating, platforms, image, genresid} = req.body
+    const { name, description, released, rating, platforms, image, genresid } = req.body
     try {
         const [newvideogame, created] = await Videogame.findOrCreate({
             where: {
@@ -200,9 +225,9 @@ router.post('/videogame', async (req, res) => {
             await newvideogame.addGenres(genresid)
             // !la s al final del addGenre(s) me permite agregar un arreglo de id's o un id en solitario
             // * de esta manera asosiamos los genros de manera eficiente sin bucles raros 
-            return res.status(200).json({ created })
+            return res.status(200).json({ created: created, newvideogame })
         } else {
-            return res.status(200).json({ created })
+            return res.status(200).json({ created: created, newvideogame })
         }
     } catch (err) {
         console.log(err)
@@ -211,7 +236,7 @@ router.post('/videogame', async (req, res) => {
 })
 
 router.get('/platforms', async (req, res) => {
-   res.json(await reducePlatfomr())
+    res.json(await reducePlatfomr())
 })
 
 module.exports = router;

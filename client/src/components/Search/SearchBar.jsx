@@ -1,16 +1,19 @@
-import React,  { useState  } from 'react'
-import { useDispatch } from 'react-redux'
+import React /*,  { useState  }*/ from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     getVideogameByName,
+    saveName
 } from '../../redux/actions.js'
 import styles from './search.module.css'
 
 const SearchBar = () => {
     const dispatch = useDispatch()
-    const [name, saveName] = useState('')
+    // const [name, saveName] = useState('')
+    const name = useSelector(state=>state.savename)
+    
     function handleSearch(e) {
         e.preventDefault()
-        saveName(e.target.value)
+        dispatch(saveName(e.target.value))
     }
     function handleSubmit(e) {
         e.preventDefault()

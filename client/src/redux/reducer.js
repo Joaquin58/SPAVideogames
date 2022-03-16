@@ -3,12 +3,14 @@ import {
   FLV_BYGN,
   GET_GN,
   FL_DBVG,
-  ORD_BYNM,
+  // ORD_BYNM,
   GET_VG,
   GET_VG_BY_ID,
   ORD_BYRT,
   POST_VG,
-  GET_PT
+  GET_PT,
+  ORD_BYNMBK,
+  SAVENAME
 } from './actions'
 
 const initialState = {
@@ -16,7 +18,8 @@ const initialState = {
   videogames: [],
   genres: [],
   idvideogame: [],
-  plataformas: []
+  plataformas: [],
+  savename: ''
 }
 
 
@@ -43,40 +46,40 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
     case FL_DBVG:
       const allvideogames = state.allVideogames
-      const cratedfilter = payload === 'Created' ? allvideogames.filter(el => el.CreatedInDb === true) 
-      : payload === 'All' ? state.allVideogames 
-      : allvideogames.filter(el => el.CreatedInDb === false)
+      const cratedfilter = payload === 'Created' ? allvideogames.filter(el => el.CreatedInDb === true)
+        : payload === 'All' ? state.allVideogames
+          : allvideogames.filter(el => el.CreatedInDb === false)
       return {
         ...state, videogames: cratedfilter
       }
-    case ORD_BYNM:
-      const nameorder = payload === 'asd' ? state.videogames.sort(function (a, b) {
-        const onename = a.name.toLowerCase()
-        const twoname = b.name.toLowerCase()
-        if (onename > twoname) {
-          return 1;
-        }
-        if (onename < twoname) {
-          return -1;
-        }
+    // case ORD_BYNM:
+    //   const nameorder = payload === 'asd' ? state.videogames.sort(function (a, b) {
+    //     const onename = a.name.toLowerCase()
+    //     const twoname = b.name.toLowerCase()
+    //     if (onename > twoname) {
+    //       return 1;
+    //     }
+    //     if (onename < twoname) {
+    //       return -1;
+    //     }
 
-        return 0;
-      }) : state.videogames.sort(function (a, b) {
-        const onename = a.name.toLowerCase()
-        const twoname = b.name.toLowerCase()
+    //     return 0;
+    //   }) : state.videogames.sort(function (a, b) {
+    //     const onename = a.name.toLowerCase()
+    //     const twoname = b.name.toLowerCase()
 
-        if (onename < twoname) {
-          return 1;
-        }
-        if (onename > twoname) {
-          return -1;
-        }
+    //     if (onename < twoname) {
+    //       return 1;
+    //     }
+    //     if (onename > twoname) {
+    //       return -1;
+    //     }
 
-        return 0;
-      })
-      return {
-        ...state, videogames: nameorder
-      }
+    //     return 0;
+    //   })
+    //   return {
+    //     ...state, videogames: nameorder
+    //   }
     case GET_VG:
       return {
         ...state, videogames: payload
@@ -106,7 +109,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return 0;
       })
       return {
-        ...state, 
+        ...state,
         videogames: ratingorder
       }
     case POST_VG:
@@ -115,8 +118,17 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
     case GET_PT:
       return {
-        ...state, 
+        ...state,
         plataformas: payload
+      }
+    case ORD_BYNMBK:
+      return {
+        ...state, videogames: payload
+      }
+    case SAVENAME:
+      return {
+        ...state,
+        savename: payload
       }
     default:
       return state;

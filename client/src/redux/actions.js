@@ -9,6 +9,8 @@ export const FLV_BYGN = 'FLV_BYGN'              //* Filtro por genero
 export const ORD_BYNM = 'ORD_BYNM'              //* ordenado por nombre
 export const ORD_BYRT = 'ORD_BYRT'              //* ordenado por nombre
 export const GET_PT = 'GET_PT'                  //* obtener plataformas desponibles
+export const ORD_BYNMBK = 'ORD_BYNMBK'
+export const SAVENAME = 'SAVENAME'
 
 
 const URL = 'http://localhost:3001'
@@ -19,7 +21,6 @@ export const getVideogames = () => {
         try {
             const response = await axios.get(`${URL}/videogames`)
             const payload = response.data
-
             return dispatch({ type: GET_VGS, payload })
         } catch (err) {
             return dispatch({ type: GET_VGS, payload: ['error'] })
@@ -87,15 +88,15 @@ export const filterVideogamesCreated = (payload) => {
     }
 }
 
-export const orderVideogamesByName = (payload) => {
-    return {
-        type: ORD_BYNM, payload
-    }
-}
+// export const orderVideogamesByName = (payload) => {
+//     return {
+//         type: ORD_BYNM, payload
+//     }
+// }
 
 export const orderVideogamesByRaiting = (payload) => {
-    return{
-        type:ORD_BYRT, payload
+    return {
+        type: ORD_BYRT, payload
     }
 }
 
@@ -104,5 +105,25 @@ export const getPlatforms = () => {
         const response = await axios.get(`${URL}/platforms`)
         const payload = response.data
         dispatch({ type: GET_PT, payload })
+    }
+}
+
+export const orderVideogamesByNameBk = (name, order) => {
+    return async (dispatch) => {
+        if (!name) {
+            const response = await axios.get(`${URL}/videogames?order=${order}`)
+            const payload = response.data
+            return dispatch({ type: ORD_BYNMBK, payload })
+        } else if (name && order) {
+            const response = await axios.get(`${URL}/videogames?name=${name}&order=${order}`)
+            const payload = response.data
+            dispatch({ type: ORD_BYNMBK, payload })
+        }
+    }
+}
+
+export const saveName= (payload) =>{
+    return {
+        type: SAVENAME, payload
     }
 }

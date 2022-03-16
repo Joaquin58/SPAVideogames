@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import {
     getVideogames,
     getGenres,
-    orderVideogamesByName,
+    // orderVideogamesByName,
     orderVideogamesByRaiting,
+    orderVideogamesByNameBk
 } from '../../redux/actions.js'
 
 import SearchBar from "../Search/SearchBar.jsx";
@@ -22,7 +23,7 @@ export default function Home() {
 
     const allVideogames = useSelector((state) => state.videogames)
     const Videogames = useSelector((state) => state.allVideogames)
-
+    const name = useSelector(state=>state.savename)
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
@@ -41,7 +42,6 @@ export default function Home() {
         console.log('entra')
         dispatch(getVideogames())
         dispatch(getGenres())
-        
     }, [dispatch])
 
     const handleClick = (e) => {
@@ -50,7 +50,7 @@ export default function Home() {
     }
     function handleOrderAlfabet(e) {
         e.preventDefault()
-        dispatch(orderVideogamesByName(e.target.value))
+        dispatch(orderVideogamesByNameBk(name,e.target.value))
         setCurrentPage(1)
         //modifica el estado local para que se renderize por un cambio
         setOrden(`Ordenado ${e.target.value}`)
@@ -62,7 +62,6 @@ export default function Home() {
         //modifica el estado local para que se renderize por un cambio
         setOrden(`Ordenado ${e.target.value}`)
     }
-
     return (
         <>
             {
