@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import fondo from '../images/landingbackgroud.jpg'
+import fondo from '../images/Arcade2.jpg'
 import landingstyles from './landing.module.css'
 const Landing = () => {
     return (
