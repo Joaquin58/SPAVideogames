@@ -8,9 +8,8 @@ import styles from './search.module.css'
 
 const SearchBar = () => {
     const dispatch = useDispatch()
-    // const [name, saveName] = useState('')
-    const name = useSelector(state=>state.savename)
-    
+    const name = useSelector(state => state.savename)
+
     function handleSearch(e) {
         e.preventDefault()
         dispatch(saveName(e.target.value))
@@ -19,16 +18,16 @@ const SearchBar = () => {
         e.preventDefault()
         dispatch(getVideogameByName(name))
     }
-  return (
-    <form className={styles.form} onSubmit={e => handleSubmit(e)}>
-    <input className={styles.SearchBar} type='text'
-        placeholder="Navega por los juegos"
-        value={name}
-        onChange={e => handleSearch(e)}
-    />
-    <button className={styles.button} type="Submit">Buscar</button>
-</form>
-  )
+    return (
+        <form className={styles.form} onSubmit={e => handleSubmit(e)}>
+            <input className={styles.SearchBar} type='text'
+                placeholder="Navega por los juegos"
+                value={name}
+                onChange={e => handleSearch(e)}
+            />
+            <button className={styles.button} type="Submit">Buscar</button>
+        </form>
+    )
 }
 
 export default SearchBar

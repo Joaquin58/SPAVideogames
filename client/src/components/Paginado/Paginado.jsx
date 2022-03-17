@@ -10,11 +10,11 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado })
         
             <ul className={PaginadoStyles.paginado}>
             <li className={PaginadoStyles.pgNum} key={1}>
-                        <a onClick={() => paginado(1)}>{1}</a>
+                        <a href="#1" onClick={() => paginado(1)}>{1}</a>
                     </li>
                 {pageNumbers && pageNumbers.map((num) => {
                     return <li className={PaginadoStyles.pgNum} key={num}>
-                        <a onClick={() => paginado(num)}>{num}</a>
+                        <a href={`#${num}`} onClick={() => paginado(num)}>{num}</a>
                     </li>
                 })
                 }

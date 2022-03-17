@@ -10,7 +10,10 @@ import {
   POST_VG,
   GET_PT,
   ORD_BYNMBK,
-  SAVENAME
+  SAVENAME,
+  FLV_BYGNBK,
+  ORDER_TYPE,
+  
 } from './actions'
 
 const initialState = {
@@ -19,7 +22,8 @@ const initialState = {
   genres: [],
   idvideogame: [],
   plataformas: [],
-  savename: ''
+  savename: '',
+  ordertype: ''
 }
 
 
@@ -36,14 +40,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state, genres: payload
       }
-    case FLV_BYGN:
-      const allVideogames = state.allVideogames
+      
 
-      const genresfilter = payload === 'ALL' ? allVideogames : allVideogames.filter(el => el.genres.includes(payload))
-      return {
-        ...state,
-        videogames: genresfilter
-      }
+      
     case FL_DBVG:
       const allvideogames = state.allVideogames
       const cratedfilter = payload === 'Created' ? allvideogames.filter(el => el.CreatedInDb === true)
@@ -52,34 +51,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state, videogames: cratedfilter
       }
-    // case ORD_BYNM:
-    //   const nameorder = payload === 'asd' ? state.videogames.sort(function (a, b) {
-    //     const onename = a.name.toLowerCase()
-    //     const twoname = b.name.toLowerCase()
-    //     if (onename > twoname) {
-    //       return 1;
-    //     }
-    //     if (onename < twoname) {
-    //       return -1;
-    //     }
-
-    //     return 0;
-    //   }) : state.videogames.sort(function (a, b) {
-    //     const onename = a.name.toLowerCase()
-    //     const twoname = b.name.toLowerCase()
-
-    //     if (onename < twoname) {
-    //       return 1;
-    //     }
-    //     if (onename > twoname) {
-    //       return -1;
-    //     }
-
-    //     return 0;
-    //   })
-    //   return {
-    //     ...state, videogames: nameorder
-    //   }
+    
     case GET_VG:
       return {
         ...state, videogames: payload
@@ -96,7 +68,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         if (a.rating > b.rating) {
           return -1;
         }
-        // a must be equal to b
+        
         return 0;
       }) : state.videogames.sort(function (a, b) {
         if (a.rating > b.rating) {
@@ -105,7 +77,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         if (a.rating < b.rating) {
           return -1;
         }
-        // a must be equal to b
+      
         return 0;
       })
       return {
@@ -130,6 +102,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         savename: payload
       }
+      case FLV_BYGN:
+        return {
+          ...state, videogames: payload
+        }
+      case FLV_BYGNBK:
+        return {
+          ...state, videogames: payload
+        }
+        case ORDER_TYPE:
+          return{
+            ...state, ordertype: payload
+          }
     default:
       return state;
   }

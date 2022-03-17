@@ -221,9 +221,6 @@ export default function Anewvideogame() {
                     })}
                 </fieldset>
                 <button className={addvgstyles.buttonsubmit} type="Submit">Submit</button>
-                {console.log('errors:')}
-                {console.log(errors)}
-                {console.log(input)}
             </form>
         </div>
     )
