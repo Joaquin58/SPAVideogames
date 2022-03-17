@@ -19,10 +19,7 @@ const ENDPAPI4 = 'https://api.rawg.io/api/games/'
 const ENDPAPI5 = 'https://api.rawg.io/api/platforms'
 
 
-let allgames = [] //. declaramos el arreglo donde podremos almacenar los juegos que usaremos para que en primera instancia los carge
-//. para que al final retornemos el mismo arreglo ya concatenado
-//. Hace los requicitos necesarios para crear un arreglo de 100 juegos, devuelve un array de objetos de todos los juegos
-//. mientras que tambien precargamos las plataformas que encuntre a la case de datos
+let allgames = [] 
 async function traertodo() {
     if (allgames.length > 0) return allgames
     let page2, page3, page4, page5
@@ -251,7 +248,11 @@ router.post('/videogame', async (req, res) => {
 })
 
 router.get('/platforms', async (req, res) => {
-    res.json(await reducePlatfomr())
+    try {
+        res.json(await reducePlatfomr())
+    } catch (error) {
+        res.json(err)
+    }
 })
 
 module.exports = router;
