@@ -127,8 +127,14 @@ function orderbyname(orden, all){
       return nameorder
 }
 
+function filter(filt, all){
+    const allVideogames = all
+    const genresfilter = filt === 'ALL' ? allVideogames : allVideogames.filter(el => el.genres.includes(filt))
+    return genresfilter
+}
+
 router.get('/videogames', (req, res) => {
-    const { name, order } = req.query
+    const { name, order, filtro } = req.query
     if (!name) {
         if (api.length > 0) {
             Videogame.findAll({
@@ -142,7 +148,10 @@ router.get('/videogames', (req, res) => {
             })
             .then(response => {
                 let allrequest = [...reducedata(response), ...api]
-                order ? res.json(orderbyname(order, allrequest)) : res.json(allrequest)
+                filtro && order ? res.json(filter(filtro, orderbyname(order, allrequest)))
+                : order ? res.json(orderbyname(order, allrequest)) 
+                : filtro ? res.json(filter(filtro, allrequest)) 
+                : res.json(allrequest)
             }).catch(err => err)
         } else {
             requestall().then(results => {
@@ -179,7 +188,12 @@ router.get('/videogames', (req, res) => {
                 }).then(results => {
                     const nameBd = results
                     if (resultadosApi.length > 0 || nameBd.length > 0) {
-                        order ? res.json(orderbyname(order, [...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, 15)])) : res.send([...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, 15)])
+                        const results = 15 - nameBd.length
+                        const resto = [...reducedata(nameBd), ...reducedata(resultadosApi).slice(0, results)]
+                        order && filtro ? res.json(filter(filtro, orderbyname(order, resto ))):
+                        order ? res.json(orderbyname(order, resto )) :
+                        filtro ? res.json(filter( filtro, resto ))
+                        : res.send(resto)
                     } else {
                         return res.status(404).send('no encontrado')
                     }
