@@ -180,7 +180,6 @@ router.get('/videogames', async (req, res) => {
 
 router.get('/videogames/:id', async (req, res) => {
     const { id } = req.params
-    console.log(typeof id)
     try {
         if (id.includes('-')) {
             let game = await Videogame.findByPk(id, {
