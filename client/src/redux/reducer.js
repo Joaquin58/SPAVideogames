@@ -13,6 +13,7 @@ import {
   SAVENAME,
   FLV_BYGNBK,
   ORDER_TYPE,
+  // nameparamas
   
 } from './actions'
 
@@ -40,9 +41,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state, genres: payload
       }
-      
-
-      
+    
     case FL_DBVG:
       const allvideogames = state.allVideogames
       const cratedfilter = payload === 'Created' ? allvideogames.filter(el => el.CreatedInDb === true)
@@ -102,10 +101,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         savename: payload
       }
-      case FLV_BYGN:
-        return {
-          ...state, videogames: payload
-        }
+      // case FLV_BYGN:
+      //   return {
+      //     ...state, videogames: payload
+      //   }
       case FLV_BYGNBK:
         return {
           ...state, videogames: payload
@@ -114,6 +113,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
           return{
             ...state, ordertype: payload
           }
+          // case nameparamas:
+          //   return{
+          //     ...state, videogames: payload
+          //   }
     default:
       return state;
   }

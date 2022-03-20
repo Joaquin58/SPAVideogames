@@ -128,7 +128,8 @@ function filter(filt, all){
 }
 
 router.get('/videogames', async (req, res) => {
-    const { name, order, filtro } = req.query
+    // const { name } = req.params
+    const {name, order, filtro } = req.query
     if (!name) {
         const allrequestApi = await traertodo()
         const allrequestBd = await Videogame.findAll({
@@ -177,6 +178,8 @@ router.get('/videogames', async (req, res) => {
         }
     }
 })
+
+
 
 router.get('/videogames/:id', async (req, res) => {
     const { id } = req.params
