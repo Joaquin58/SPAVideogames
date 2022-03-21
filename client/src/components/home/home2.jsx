@@ -8,7 +8,8 @@ import {
     filterVideogamesCreated,
     filterVideogamesAndNameBk,
     orderchange,
-    saveName
+    saveName,
+    savePage
 } from '../../redux/actions.js'
 import styles from './filtro.module.css'
 import SearchBar from "../Search/SearchBar.jsx";
@@ -36,15 +37,15 @@ export default function Home() {
 
     //* --- Paginado ---*
     if (Array.isArray(allVideogames)) {
-        var indexOfLastVideogame = CuerrentPage * VideogamesforPage
-        var idexOfFirstPage = indexOfLastVideogame - VideogamesforPage
+        var indexOfLastVideogame = CuerrentPage * VideogamesforPage     //todo: calcula el numero del ultimo juego
+        var idexOfFirstPage = indexOfLastVideogame - VideogamesforPage  //todo: calcula el numero del primer juego
         var currentVideogames = allVideogames.slice(idexOfFirstPage, indexOfLastVideogame)
+
     }
 
     const paginado = (pageNumber) => setCurrentPage(pageNumber)
 
     useEffect(() => {
-        console.log('entra')
         dispatch(getVideogames())
         dispatch(getGenres())
         dispatch(saveName(''))
@@ -55,12 +56,14 @@ export default function Home() {
         dispatch(orderchange())
         dispatch(getVideogames())
     }
+
     function handleOrderAlfabet(e) {
         e.preventDefault()
         setCurrentPage(1)
         dispatch(orderchange(e.target.value))
         dispatch(filterVideogamesAndNameBk(name, e.target.value))
     }
+
     function handleOrderRating(e) {
         e.preventDefault()
         setCurrentPage(1)
@@ -74,10 +77,12 @@ export default function Home() {
         dispatch(filterVideogamesCreated(e.target.value))
     }
 
-    function allinone(e){
+    function allinone(e) {
         setCurrentPage(1)
-        dispatch(filterVideogamesAndNameBk(name, order,e.target.value))
+        dispatch(filterVideogamesAndNameBk(name, order, e.target.value))
+        dispatch(savePage(''))
     }
+
     return (
         <>
             {

@@ -1,9 +1,7 @@
 import {
   GET_VGS,
-  FLV_BYGN,
   GET_GN,
   FL_DBVG,
-  // ORD_BYNM,
   GET_VG,
   GET_VG_BY_ID,
   ORD_BYRT,
@@ -13,8 +11,7 @@ import {
   SAVENAME,
   FLV_BYGNBK,
   ORDER_TYPE,
-  // nameparamas
-  
+  PAG_UPDATE
 } from './actions'
 
 const initialState = {
@@ -24,7 +21,8 @@ const initialState = {
   idvideogame: [],
   plataformas: [],
   savename: '',
-  ordertype: ''
+  ordertype: '',
+  statePag: ''
 }
 
 
@@ -37,11 +35,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allVideogames: payload
       }
     case GET_GN:
-
       return {
         ...state, genres: payload
       }
-    
     case FL_DBVG:
       const allvideogames = state.allVideogames
       const cratedfilter = payload === 'Created' ? allvideogames.filter(el => el.CreatedInDb === true)
@@ -50,7 +46,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state, videogames: cratedfilter
       }
-    
     case GET_VG:
       return {
         ...state, videogames: payload
@@ -67,7 +62,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         if (a.rating > b.rating) {
           return -1;
         }
-        
+
         return 0;
       }) : state.videogames.sort(function (a, b) {
         if (a.rating > b.rating) {
@@ -76,7 +71,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         if (a.rating < b.rating) {
           return -1;
         }
-      
+
         return 0;
       })
       return {
@@ -101,22 +96,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         savename: payload
       }
-      // case FLV_BYGN:
-      //   return {
-      //     ...state, videogames: payload
-      //   }
-      case FLV_BYGNBK:
-        return {
-          ...state, videogames: payload
-        }
-        case ORDER_TYPE:
-          return{
-            ...state, ordertype: payload
-          }
-          // case nameparamas:
-          //   return{
-          //     ...state, videogames: payload
-          //   }
+    case FLV_BYGNBK:
+      return {
+        ...state, videogames: payload
+      }
+    case ORDER_TYPE:
+      return {
+        ...state, ordertype: payload
+      }
+    case PAG_UPDATE:
+      return {
+        ...state, statePag: payload
+      }
     default:
       return state;
   }

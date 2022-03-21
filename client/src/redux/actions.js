@@ -5,7 +5,6 @@ export const GET_VG_BY_ID = 'GET_VG_BY_ID'      //* Un solo juego por id
 export const GET_GN = 'GET_GN'                  //* Todos los generos
 export const POST_VG = 'POST_VG'                //* Postear un juego
 export const FL_DBVG = 'FL_DBVG'                //* Filtro de los juegos creados por el usuario
-// export const FLV_BYGN = 'FLV_BYGN'              //* Filtro por genero
 export const ORD_BYNM = 'ORD_BYNM'              //* ordenado por nombre
 export const ORD_BYRT = 'ORD_BYRT'              //* ordenado por nombre
 export const GET_PT = 'GET_PT'                  //* obtener plataformas desponibles
@@ -13,8 +12,8 @@ export const ORD_BYNMBK = 'ORD_BYNMBK'
 export const SAVENAME = 'SAVENAME'
 export const FLV_BYGNBK = 'FLV_BYGNBK'
 export const ORDER_TYPE = 'ORDER_TYPE'
+export const PAG_UPDATE = 'PAG_UPDATE'
 
-// export const nameparamas = 'nameparamas'
 
 // const URL = 'http://localhost:3001'
 
@@ -38,14 +37,6 @@ export const getVideogameByName = (name) => {
         dispatch({ type: GET_VG, payload })
     }
 }
-
-// export const Getvideogamesbynameparamam = (name)=>{
-//     return async(dispatch) =>{
-//         const response = await axios.get(`/videogames/${name}`)
-//         const payload = response.data
-//         dispatch({type:nameparamas, payload })
-//     }
-// }
 
 export const getVideogameById = (id) => {
     return async (dispatch) => {
@@ -112,7 +103,6 @@ export const orderVideogamesByNameBk = (name, order) => {
     return async (dispatch) => {
         if (!name) {
             try {
-
                 const response = await axios.get(`/videogames?order=${order}`)
                 const payload = response.data
                 return dispatch({ type: ORD_BYNMBK, payload })
@@ -138,7 +128,7 @@ export const filterVideogamesAndNameBk = (name, order, filtro) => {
             }
         } else if (name || order || filtro) {
             try {
-                const response = await axios.get(`/videogames?name=${name?name:''}&order=${order?order:''}&filtro=${filtro?filtro:''}`)
+                const response = await axios.get(`/videogames?name=${name ? name : ''}&order=${order ? order : ''}&filtro=${filtro ? filtro : ''}`)
                 const payload = response.data
                 return dispatch({ type: FLV_BYGNBK, payload })
             } catch (error) {
@@ -151,7 +141,7 @@ export const filterVideogamesAndNameBk = (name, order, filtro) => {
 
 export const orderchange = (payload) => {
     if (payload === undefined) {
-        return { type: ORDER_TYPE, payload:'' }
+        return { type: ORDER_TYPE, payload: '' }
     } else {
         return { type: ORDER_TYPE, payload }
     }
@@ -160,5 +150,11 @@ export const orderchange = (payload) => {
 export const saveName = (payload) => {
     return {
         type: SAVENAME, payload
+    }
+}
+
+export const savePage = (payload) => {
+    return {
+        type: PAG_UPDATE, payload
     }
 }

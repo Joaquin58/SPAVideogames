@@ -41,7 +41,20 @@ ul li a {
 
 }
 
-.pgNum:hover a {
+ul li.pgNum:hover a,
+ul li.pgNum.active a {
     background: rgba(224, 207, 207, 0.37);
     color: #fff;
+}
+
+ul li:first-child {
+    margin-right: 30px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+ul li:last-child {
+    margin-left: 30px;
+    font-weight: 700;
+    font-size: 20px;
 }
