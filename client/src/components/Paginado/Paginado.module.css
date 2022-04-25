@@ -17,7 +17,7 @@
 ul li {
     list-style: none;
     line-height: 50px;
-    margin: 0 5px;
+    /* margin: 0 5px; */
 }
 
 .pgNum {
@@ -58,3 +58,11 @@ ul li:last-child {
     font-weight: 700;
     font-size: 20px;
 }
+
+li + li {
+    margin-left: 2rem;
+
+    @media @phone {
+      margin-left: 1rem;
+    }
+  }

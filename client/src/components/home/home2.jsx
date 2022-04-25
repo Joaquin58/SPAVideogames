@@ -49,6 +49,7 @@ export default function Home() {
         dispatch(getVideogames())
         dispatch(getGenres())
         dispatch(saveName(''))
+        dispatch(savePage(''))
     }, [dispatch])
 
     const handleClick = (e) => {
@@ -83,6 +84,9 @@ export default function Home() {
         dispatch(savePage(''))
     }
 
+    function allfilterinone(e) {
+
+    }
     return (
         <>
             {
@@ -96,31 +100,38 @@ export default function Home() {
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             <SearchBar />
                             <div className={HomeStyles.selecters}>
-                                {/* <FiltroGenre /> */}
-                                <select className={styles.filters} defaultValue='' onChange={e => allinone(e)}>
-                                    <option value='' disabled >Filtra por generos</option>
-                                    <option value='ALL'>All</option>
-                                    {
-                                        allGenres && allGenres.map((gen) => {
-                                            return <option key={gen.id} value={gen.name}>{gen.name}</option>
-                                        })
-                                    }
-                                </select>
                                 <select className={styles.filters} defaultValue='' onChange={e => handleFilterCreated(e)}>
-                                    <option value='' disabled >Filtra por existente o creado</option>
-                                    <option value='All'>All</option>
-                                    <option value='Exist'>Exist</option>
-                                    <option value='Created'>Created</option>
+                                    <optgroup label="Filtra por existente o creado">
+                                        <option value='' disabled selected hidden >Filtra por existente o creado</option>
+                                        <option value='All'>All</option>
+                                        <option value='Exist'>Exist</option>
+                                        <option value='Created'>Created</option>
+                                    </optgroup>
+                                </select>
+                                <select className={styles.filters} defaultValue='' onChange={e => allinone(e)}>
+                                    <optgroup label="Filtra por generos">
+                                        <option value='' disabled selected hidden >Filtra por generos</option>
+                                        <option value='ALL'>All</option>
+                                        {
+                                            allGenres && allGenres.map((gen) => {
+                                                return <option key={gen.id} value={gen.name}>{gen.name}</option>
+                                            })
+                                        }
+                                    </optgroup>
                                 </select>
                                 <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderAlfabet(e)}>
-                                    <option value='' disabled >Ordena por orden alfabetico</option>
-                                    <option value='asd'>Ascendente</option>
-                                    <option value='des'>Descendente</option>
+                                    <optgroup label="Ordena por orden alfabetico">
+                                        <option value='' disabled selected hidden>Ordena por orden alfabetico</option>
+                                        <option value='asd'>Ascendente</option>
+                                        <option value='des'>Descendente</option>
+                                    </optgroup>
                                 </select>
                                 <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderRating(e)}>
-                                    <option value='' disabled>Ordena por rating</option>
-                                    <option value='max'>Mayor</option>
-                                    <option value='min'>Menor</option>
+                                    <optgroup label="Ordena por rating">
+                                        <option value='' disabled selected hidden>Ordena por rating</option>
+                                        <option value='max'>Mayor</option>
+                                        <option value='min'>Menor</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </nav>
