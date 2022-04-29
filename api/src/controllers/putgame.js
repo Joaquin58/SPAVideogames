@@ -4,7 +4,7 @@ const putgame = async (req, res) => {
     try {
         let { genresid, ...params } = req.body
 
-        await updategame(id, params, genresid)
+        await updategame(id, params)
 
         res.status(200).json(await Videogame.findOne({
             where: { id }
