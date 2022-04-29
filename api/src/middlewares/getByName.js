@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { Op } = require('Sequelize')
+const { Op } = require('sequelize')
 const { Videogame, Genre } = require('../db')
 const { API_KEY } = process.env
 const ENDPAPI2 = 'https://api.rawg.io/api/games?search='
