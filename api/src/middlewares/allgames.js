@@ -4,7 +4,7 @@ const { API_KEY } = process.env
 const reducedata = require('./reducedata')
 const ENDPAPI1 = 'https://api.rawg.io/api/games?key='
 
-
+//modificado 
 let allgames = []
 
 const traertodo = async () => {
