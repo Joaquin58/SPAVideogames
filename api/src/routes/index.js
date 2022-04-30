@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Router } = require('express');
 const axios = require('axios')
-const { Op } = require('Sequelize')
+const { Op } = require('sequelize')
 const { Videogame, Genre } = require('../db')
 const { API_KEY } = process.env
 // Importar todos los routers;
