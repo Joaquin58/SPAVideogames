@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
       
     },
     rating: {
-      type: DataTypes.STRING,
+      type: DataTypes.FLOAT,
       allowNull: true,
       validate:{
         max:5,
