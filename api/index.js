@@ -20,7 +20,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 // cambio en index
-
+//segundo cambio en index
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, () => {
