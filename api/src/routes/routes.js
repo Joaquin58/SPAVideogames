@@ -10,6 +10,7 @@ const putgame = require('../controllers/putgame.js')
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
+// nota de cambio
 
 const router = Router();
 
