@@ -32,10 +32,10 @@ const Game = () => {
                     {image === undefined ? <img src={`${Loading}`} alt='Loanding...' />
                         : <div className={gamestyles.contend}>
                             <div className={gamestyles.top}>
-                                <img className={gamestyles.imagevg} src={`${defaultimage}`} alt='notfound' />
                                 <div className={gamestyles.contentdates}>
                                     <div className={gamestyles.descriptionconteiner}><div className={gamestyles.description} dangerouslySetInnerHTML={{ __html: description }} /></div>
                                 </div>
+                                <img className={gamestyles.imagevg} src={`${defaultimage}`} alt='notfound' />
                             </div>
                             <div className={gamestyles.mapsconteiner}>
                                 <div>

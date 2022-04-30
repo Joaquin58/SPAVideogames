@@ -29,6 +29,7 @@
     background: rgba(21, 21, 22, 0.781);
     overflow: hidden;
     border-radius: 25px;
+    padding-bottom: 1em;
 }
 
 .top {
