@@ -26,17 +26,17 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado, n
     return (
 
         <ul className={PaginadoStyles.paginado}>
-            <li><a href="#" onClick={() => paginado(prev)} className={PaginadoStyles.prev}>Prev</a></li>
+            <li><a href={`?pag=${next}`} onClick={() => paginado(prev)} className={PaginadoStyles.prev}>Prev</a></li>
             <li className={state === '1' || state === '' ? `${PaginadoStyles.pgNum} ${PaginadoStyles.active}` : PaginadoStyles.pgNum} key={1}>
-                <a href="#1" onClick={(e) => { paginado(1); hundleActive(e) }} id='1'>{1}</a>
+                <a href="#?pag=1" onClick={(e) => { paginado(1); hundleActive(e) }} id='1'>{1}</a>
             </li>
             {pageNumbers && pageNumbers.map((num) => {
                 return <li className={state === `${num}` ? `${PaginadoStyles.pgNum} ${PaginadoStyles.active}` : PaginadoStyles.pgNum} key={num}>
-                    <a href={`#${num}`} onClick={(e) => { paginado(num); hundleActive(e) }} id={`${num}`}>{num}</a>
+                    <a href={`?pag=${num}`} onClick={(e) => { paginado(num); hundleActive(e) }} id={`${num}`}>{num}</a>
                 </li>
             })
             }
-            <li><a href="#" onClick={() => paginado(next)} className={PaginadoStyles.next}>Next</a></li>
+            <li><a href={`?pag=${next}`} onClick={() => paginado(next)} className={PaginadoStyles.next}>Next</a></li>
             {console.log(state)}
             {console.log(state === '')}
         </ul>
