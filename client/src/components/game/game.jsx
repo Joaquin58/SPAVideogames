@@ -20,7 +20,7 @@ const Game = () => {
     }, [dispatch, vgid])
 
     if (idvideogame) {
-        var { image, genres, description, name, platforms, rating, released, CreatedInDb } = idvideogame
+        var {id, image, genres, description, name, platforms, rating, released, CreatedInDb } = idvideogame
         var defaultimage = image === null || image === undefined ? imagedefault : image.length===0 ? imagedefault : image
     }
     

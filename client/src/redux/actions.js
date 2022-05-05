@@ -13,7 +13,7 @@ export const SAVENAME = 'SAVENAME'
 export const FLV_BYGNBK = 'FLV_BYGNBK'
 export const ORDER_TYPE = 'ORDER_TYPE'
 export const PAG_UPDATE = 'PAG_UPDATE'
-
+export const UPDATE_GAME = 'UPDATE_GAME'
 
 // const URL = 'http://localhost:3001'
 
@@ -78,7 +78,6 @@ export const postVideogame = (body) => {
     }
 }
 
-
 export const filterVideogamesCreated = (payload) => {
     return {
         type: FL_DBVG, payload
@@ -116,6 +115,7 @@ export const orderVideogamesByNameBk = (name, order) => {
         }
     }
 }
+
 export const filterVideogamesAndNameBk = (name, order, filtro) => {
     return async (dispatch) => {
         if (!(name || order || filtro)) {
@@ -156,5 +156,13 @@ export const saveName = (payload) => {
 export const savePage = (payload) => {
     return {
         type: PAG_UPDATE, payload
+    }
+}
+
+export const updateGame = (id) => {
+    return async (dispatch) => {
+        const { data } = await axios.put('/update/:id')
+        const payload = data
+        dispatch({ type: UPDATE_GAME, payload })
     }
 }
