@@ -84,9 +84,7 @@ export default function Home() {
         dispatch(savePage(''))
     }
 
-    function allfilterinone(e) {
-
-    }
+    
     return (
         <>
             {
