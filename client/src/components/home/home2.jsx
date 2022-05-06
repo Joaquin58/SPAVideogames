@@ -84,7 +84,7 @@ export default function Home() {
         dispatch(savePage(''))
     }
 
-    
+
     return (
         <>
             {
@@ -100,7 +100,7 @@ export default function Home() {
                             <div className={HomeStyles.selecters}>
                                 <select className={styles.filters} defaultValue='' onChange={e => handleFilterCreated(e)}>
                                     <optgroup label="Filtra por existente o creado">
-                                        <option value='' disabled selected hidden >Filtra por existente o creado</option>
+                                        {/* <option value='' disabled selected hidden >Filtra por existente o creado</option> */}
                                         <option value='All'>All</option>
                                         <option value='Exist'>Exist</option>
                                         <option value='Created'>Created</option>
@@ -108,7 +108,7 @@ export default function Home() {
                                 </select>
                                 <select className={styles.filters} defaultValue='' onChange={e => allinone(e)}>
                                     <optgroup label="Filtra por generos">
-                                        <option value='' disabled selected hidden >Filtra por generos</option>
+                                        {/* <option value='' disabled selected hidden >Filtra por generos</option> */}
                                         <option value='ALL'>All</option>
                                         {
                                             allGenres && allGenres.map((gen) => {
@@ -119,23 +119,25 @@ export default function Home() {
                                 </select>
                                 <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderAlfabet(e)}>
                                     <optgroup label="Ordena por orden alfabetico">
-                                        <option value='' disabled selected hidden>Ordena por orden alfabetico</option>
+                                        {/* <option value='' disabled selected hidden>Ordena por orden alfabetico</option> */}
                                         <option value='asd'>Ascendente</option>
                                         <option value='des'>Descendente</option>
                                     </optgroup>
                                 </select>
                                 <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderRating(e)}>
                                     <optgroup label="Ordena por rating">
-                                        <option value='' disabled selected hidden>Ordena por rating</option>
+                                        {/* <option value='' disabled selected hidden>Ordena por rating</option> */}
                                         <option value='max'>Mayor</option>
                                         <option value='min'>Menor</option>
                                     </optgroup>
                                 </select>
                             </div>
                         </nav>
-                        <Paginado videogamesForPage={VideogamesforPage}
+                        <Paginado
+                            videogamesForPage={VideogamesforPage}
                             allvideogames={allVideogames.length}
                             paginado={paginado}
+                            currentPage={CuerrentPage}
                         />
                         <div className={HomeStyles.cards}>
                             {
