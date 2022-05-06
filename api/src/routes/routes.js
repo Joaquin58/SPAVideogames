@@ -6,6 +6,7 @@ const chargegenres = require('../controllers/chargegenres.js');
 const postgame = require('../controllers/postgame');
 const platforms = require('../controllers/platforms.js')
 const putgame = require('../controllers/putgame.js')
+const deletegame = require('../controllers/deletegame.js')
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -27,5 +28,7 @@ router.post('/videogame', postgame)
 router.get('/platforms', platforms)
 
 router.put('/update/:id', putgame)
+
+router.delete('/delete/:id', deletegame)
 
 module.exports = router;

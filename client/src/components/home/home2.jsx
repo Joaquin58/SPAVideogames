@@ -84,9 +84,7 @@ export default function Home() {
         dispatch(savePage(''))
     }
 
-    function allfilterinone(e) {
 
-    }
     return (
         <>
             {
@@ -135,9 +133,11 @@ export default function Home() {
                                 </select>
                             </div>
                         </nav>
-                        <Paginado videogamesForPage={VideogamesforPage}
+                        <Paginado
+                            videogamesForPage={VideogamesforPage}
                             allvideogames={allVideogames.length}
                             paginado={paginado}
+                            currentPage={CuerrentPage}
                         />
                         <div className={HomeStyles.cards}>
                             {
