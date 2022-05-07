@@ -1,6 +1,7 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import {
     postVideogame,
     getGenres,
@@ -27,6 +28,7 @@ const validateerrors = (input) => {
     return errors
 }
 export default function Anewvideogame() {
+    const { id } = useParams()
     const dispatch = useDispatch()
     const history = useHistory()
     const genres = useSelector(state => state.genres)
@@ -44,10 +46,32 @@ export default function Anewvideogame() {
     })
     const [errors, serErrors] = useState({})
 
+    const editgame = window.location.pathname === `/editgame/${id}`
+
     useEffect(() => {
-        dispatch(getGenres())
-        dispatch(getPlatforms())
-    }, [dispatch])
+        if (editgame) {
+            dispatch(getGenres())
+            dispatch(getPlatforms())
+            async function getData() {
+                const { data: { name, description, released, rating, image, platforms, genres } } = await axios.get(`/videogames/${id}`)
+                console.log({ name, description, released, rating, image, platforms, genres })
+                setInput({
+                    name,
+                    description,
+                    released,
+                    rating,
+                    image,
+                    platforms,
+                    genres
+                })
+            }
+            getData()
+        } else {
+            dispatch(getGenres())
+            dispatch(getPlatforms())
+        }
+    }, [dispatch, id, editgame])
+
 
     const handleChange = (e) => {
         setInput({
@@ -81,6 +105,7 @@ export default function Anewvideogame() {
         }
     }
     const handleCheckgn = (e) => {
+        console.log(e)
         if (e.target.checked) {
             setInput({
                 ...input,
@@ -196,6 +221,7 @@ export default function Anewvideogame() {
                                 key={pt.id}
                                 name={pt.name}
                                 value={pt.id}
+                                checked={!!input.platforms?.find(( name ) => name === pt.name)}
                             /><label
                                 className={addvgstyles.labelch}
                             >{pt.name}</label>
@@ -214,6 +240,7 @@ export default function Anewvideogame() {
                                 value={gen.id}
                                 id={gen.name}
                                 className={addvgstyles.checkbox}
+                                checked={!!input.genres?.find(({ name }) => name === gen.name)}
                             /><label
                                 className={addvgstyles.labelch}
                             >{gen.name}</label>

@@ -15,6 +15,7 @@ function App() {
         <Route exact path ='/home/' render={()=><Home2/>}/>  {/* ruta principal */}
         <Route exact path ='/videogame/:vgid' render={()=><Game/>}/>  {/* ruta detalles del juego */}
         <Route exact path='/makevideogame' render={()=><Addvg/>}/>
+        <Route exact path='/editgame/:id' render={()=><Addvg/>}/>
         </Switch>
       </Router>
     </div>  
