@@ -32,7 +32,7 @@ export default function Home() {
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
-
+    const [valueSelect, setSelectValue] = useState('Filtra por existente o creado')
     const [, setOrden] = useState('')
 
     //* --- Paginado ---*
@@ -75,6 +75,7 @@ export default function Home() {
 
     function handleFilterCreated(e) {
         setCurrentPage(1)
+        setSelectValue(e.target.value)
         dispatch(filterVideogamesCreated(e.target.value))
     }
 
@@ -98,10 +99,10 @@ export default function Home() {
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             <SearchBar />
                             <div className={HomeStyles.selecters}>
-                                <select className={styles.filters} defaultValue='' onChange={e => handleFilterCreated(e)}>
+                                <select className={styles.filters} value={valueSelect} onChange={e => handleFilterCreated(e)}>
                                     <optgroup label="Filtra por existente o creado">
-                                        <option value='' disabled selected hidden >Filtra por existente o creado</option>
                                         <option value='All'>All</option>
+                                        <option value='Filtra por existente o creado' disabled hidden>Filtra por existente o creado</option>
                                         <option value='Exist'>Exist</option>
                                         <option value='Created'>Created</option>
                                     </optgroup>
