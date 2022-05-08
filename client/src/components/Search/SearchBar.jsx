@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     getVideogameByName,
     saveName,
+    savePage
 } from '../../redux/actions.js'
 import styles from './search.module.css'
 
@@ -18,6 +19,7 @@ const SearchBar = ({setCurrentPage}) => {
         e.preventDefault()
         await dispatch(getVideogameByName(name))
         setCurrentPage(1)
+        dispatch(savePage('1'))
         dispatch(saveName(''))
     }
     return (
