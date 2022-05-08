@@ -159,9 +159,10 @@ export const savePage = (payload) => {
     }
 }
 
-export const updateGame = (id) => {
+export const updateGame = (id, input) => {
+    console.log(input)
     return async (dispatch) => {
-        const { data } = await axios.put('/update/:id')
+        const { data } = await axios.put(`/update/${id}`, input)
         const payload = data
         dispatch({ type: UPDATE_GAME, payload })
     }

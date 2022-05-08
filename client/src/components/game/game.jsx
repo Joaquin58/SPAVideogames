@@ -41,7 +41,9 @@ const Game = () => {
                                 <h1 className={gamestyles.title}>{name}</h1>
                                 {
                                     CreatedInDb
-                                        ? <button className={gamestyles.buttondelete}>x</button>
+                                        ? <Link to={`/editgame/${vgid}`}>
+                                            <button className={gamestyles.buttondelete}>Eddit</button>
+                                        </Link>
                                         : <></>
                                 }
                             </div>

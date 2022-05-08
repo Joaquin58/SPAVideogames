@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     getVideogameByName,
     saveName,
-    // Getvideogamesbynameparamam
 } from '../../redux/actions.js'
 import styles from './search.module.css'
 
@@ -15,9 +14,10 @@ const SearchBar = () => {
         e.preventDefault()
         dispatch(saveName(e.target.value))
     }
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        dispatch(getVideogameByName(name))
+        await dispatch(getVideogameByName(name))
+        dispatch(saveName(''))
     }
     return (
         <form className={styles.form} onSubmit={e => handleSubmit(e)}>

@@ -6,7 +6,6 @@ const { API_KEY } = process.env
 const getById = async (req, res) => {
     const { id } = req.params
     try {
-        console.log(id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i));
         if (id.match(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)) {
             let game = await getGameById(id)
             if (!game) return res.status(404).send('No encontrado')

@@ -24,7 +24,7 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado, c
     return (
         <ul className={PaginadoStyles.paginado}>
             <li>
-                <a href={`#?pag=${1 > currentPage - 1 ? currentPage : currentPage - 1}`}
+                <a href={`#?pag=${pageNumbers.length < 0 && 1 > currentPage - 1 ? currentPage : currentPage - 1}`}
                     onClick={(e) => { paginado(1 > currentPage - 1 ? currentPage : currentPage - 1); hundleActive(e) }}
                     className={PaginadoStyles.prev}
                     id={1 > currentPage - 1 ? currentPage : currentPage - 1}
@@ -45,10 +45,10 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado, c
             })
             }
             <li>
-                <a href={`#?pag=${lastPage < currentPage + 1 ? currentPage : currentPage + 1}`}
-                    onClick={(e) => { paginado(lastPage < currentPage + 1 ? currentPage : currentPage + 1); hundleActive(e) }}
+                <a href={`#?pag=${pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage }`}
+                    onClick={(e) => { paginado(pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage ); hundleActive(e) }}
                     className={PaginadoStyles.next}
-                    id={lastPage < currentPage + 1 ? currentPage : currentPage + 1}
+                    id={pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage }
                 >Next</a>
             </li>
         </ul>

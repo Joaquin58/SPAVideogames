@@ -1,4 +1,4 @@
-const { Videogame, Genre } = require('../db')
+const { Videogame } = require('../db')
 const updategame = async (id, params, genresid) => {
     await Videogame.update(params, {
         where: { id }
