@@ -6,7 +6,7 @@ import {
 } from '../../redux/actions.js'
 import styles from './search.module.css'
 
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
     const dispatch = useDispatch()
     const name = useSelector(state => state.savename)
 
@@ -17,6 +17,7 @@ const SearchBar = () => {
     async function handleSubmit(e) {
         e.preventDefault()
         await dispatch(getVideogameByName(name))
+        setCurrentPage(1)
         dispatch(saveName(''))
     }
     return (

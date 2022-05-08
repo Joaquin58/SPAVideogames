@@ -98,7 +98,7 @@ export default function Home() {
                             </Link>
                             <h1>Videogames</h1>
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
-                            <SearchBar />
+                            <SearchBar setCurrentPage={setCurrentPage} />
                             <div className={HomeStyles.selecters}>
                                 <Filtexist handleFilterCreated={handleFilterCreated} />
                                 <Filtgenres allGenres={allGenres} allinone={allinone} />
