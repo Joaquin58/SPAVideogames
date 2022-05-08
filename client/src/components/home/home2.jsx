@@ -11,15 +11,17 @@ import {
     saveName,
     savePage
 } from '../../redux/actions.js'
-import styles from './filtro.module.css'
 import SearchBar from "../Search/SearchBar.jsx";
 import Card from '../Card/card.jsx'
 import Paginado from '../Paginado/Paginado.jsx'
-
 import Loading from '../images/charge.gif'
 import NotFound from '../images/gameovertransparent.png'
 import NotResults from '../images/not-found-icon-15.jpg'
 import HomeStyles from '../home/home.module.css'
+import Filtexist from "../Filtro/Filtexist.jsx";
+import Filtgenres from "../Filtro/Filtgenres.jsx";
+import Orderalfabet from "../Filtro/Orderalfabet.jsx";
+import Orderrating from "../Filtro/Orderrating.jsx";
 export default function Home() {
 
     const dispatch = useDispatch()
@@ -32,7 +34,7 @@ export default function Home() {
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
-    const [valueSelect, setSelectValue] = useState('Filtra por existente o creado')
+
     const [, setOrden] = useState('')
 
     //* --- Paginado ---*
@@ -75,7 +77,6 @@ export default function Home() {
 
     function handleFilterCreated(e) {
         setCurrentPage(1)
-        setSelectValue(e.target.value)
         dispatch(filterVideogamesCreated(e.target.value))
     }
 
@@ -99,39 +100,10 @@ export default function Home() {
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             <SearchBar />
                             <div className={HomeStyles.selecters}>
-                                <select className={styles.filters} value={valueSelect} onChange={e => handleFilterCreated(e)}>
-                                    <optgroup label="Filtra por existente o creado">
-                                        <option value='All'>All</option>
-                                        <option value='Filtra por existente o creado' disabled hidden>Filtra por existente o creado</option>
-                                        <option value='Exist'>Exist</option>
-                                        <option value='Created'>Created</option>
-                                    </optgroup>
-                                </select>
-                                <select className={styles.filters} defaultValue='' onChange={e => allinone(e)}>
-                                    <optgroup label="Filtra por generos">
-                                        <option value='' disabled selected hidden >Filtra por generos</option>
-                                        <option value='ALL'>All</option>
-                                        {
-                                            allGenres && allGenres.map((gen) => {
-                                                return <option key={gen.id} value={gen.name}>{gen.name}</option>
-                                            })
-                                        }
-                                    </optgroup>
-                                </select>
-                                <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderAlfabet(e)}>
-                                    <optgroup label="Ordena por orden alfabetico">
-                                        <option value='' disabled selected hidden>Ordena por orden alfabetico</option>
-                                        <option value='asd'>Ascendente</option>
-                                        <option value='des'>Descendente</option>
-                                    </optgroup>
-                                </select>
-                                <select className={HomeStyles.select} defaultValue='' onChange={e => handleOrderRating(e)}>
-                                    <optgroup label="Ordena por rating">
-                                        <option value='' disabled selected hidden>Ordena por rating</option>
-                                        <option value='max'>Mayor</option>
-                                        <option value='min'>Menor</option>
-                                    </optgroup>
-                                </select>
+                                <Filtexist handleFilterCreated={handleFilterCreated} />
+                                <Filtgenres allGenres={allGenres} allinone={allinone} />
+                                <Orderalfabet handleOrderAlfabet={handleOrderAlfabet} />
+                                <Orderrating handleOrderRating={handleOrderRating} />
                             </div>
                         </nav>
                         <Paginado
@@ -144,7 +116,6 @@ export default function Home() {
                             {
                                 currentVideogames?.map((el) => {
                                     return <Card key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />
-
                                 })
                             }
                         </div>
