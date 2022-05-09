@@ -12,7 +12,8 @@ import {
   FLV_BYGNBK,
   ORDER_TYPE,
   PAG_UPDATE,
-  UPDATE_GAME
+  UPDATE_GAME,
+  DELETE_GAME
 } from './actions'
 
 const initialState = {
@@ -110,7 +111,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state, statePag: payload
       }
     case UPDATE_GAME:
-      return{
+      return {
+        ...state
+      }
+    case DELETE_GAME:
+      return {
         ...state
       }
     default:

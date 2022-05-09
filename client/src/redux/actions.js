@@ -14,6 +14,7 @@ export const FLV_BYGNBK = 'FLV_BYGNBK'
 export const ORDER_TYPE = 'ORDER_TYPE'
 export const PAG_UPDATE = 'PAG_UPDATE'
 export const UPDATE_GAME = 'UPDATE_GAME'
+export const DELETE_GAME = 'DELETE_GAME'
 
 // const URL = 'http://localhost:3001'
 
@@ -160,10 +161,17 @@ export const savePage = (payload) => {
 }
 
 export const updateGame = (id, input) => {
-    console.log(input)
     return async (dispatch) => {
         const { data } = await axios.put(`/update/${id}`, input)
         const payload = data
         dispatch({ type: UPDATE_GAME, payload })
+    }
+}
+
+export const deletegame = (id) => {
+    return async (dispatch) => {
+        const { data } = await axios.delete(`/delete/${id}`)
+        const payload = data
+            dispatch({type:DELETE_GAME, payload})
     }
 }
