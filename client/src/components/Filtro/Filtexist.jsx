@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './filtro.module.css'
 
-const Filtexist = ({ handleFilterCreated }) => {
-    const [valueSelect, setSelectValue] = useState('Filtra por existente o creado')
+const Filtexist = ({ handleFilterCreated, value }) => {
+
     return (
-        <select className={styles.filters} value={valueSelect} onChange={e => { setSelectValue(e.target.value); handleFilterCreated(e) }}>
+        <select className={styles.filters} value={value} onChange={handleFilterCreated}>
             <optgroup label="Filtra por existente o creado">
                 <option value='All'>All</option>
                 <option value='Filtra por existente o creado' disabled hidden>Filtra por existente o creado</option>
