@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory, useParams } from "react-router-dom";
 import {
@@ -45,14 +45,26 @@ export default function Anewvideogame() {
         genres: [],
         genresid: [],
     })
+
     const [errors, serErrors] = useState({})
+
+    let firstRender = useRef(0)
+    let inputnombre = useRef()
+    const inputReleased = useRef()
+    const inputnumber = useRef()
+    const inputimage = useRef()
+    const inputdescription = useRef()
 
     const editgame = window.location.pathname === `/editgame/${id}`
 
+
     useEffect(() => {
         if (editgame) {
-            dispatch(getGenres())
-            dispatch(getPlatforms())
+            if (firstRender.current === 0) {
+                dispatch(getPlatforms())
+                dispatch(getGenres())
+                firstRender.current += 1
+            }
             async function getData() {
                 const { data: { name, description, released, rating, image, platforms, genres } } = await axios.get(`/videogames/${id}`)
                 setInput({
@@ -68,8 +80,11 @@ export default function Anewvideogame() {
             }
             getData()
         } else {
-            dispatch(getGenres())
-            dispatch(getPlatforms())
+            if (firstRender.current === 0) {
+                dispatch(getPlatforms())
+                dispatch(getGenres())
+                firstRender.current += 1
+            }
         }
     }, [dispatch, id, editgame])
 
@@ -123,7 +138,6 @@ export default function Anewvideogame() {
     }
 
     const hanldeSubmit = (e) => {
-        console.log(e)
         e.preventDefault()
         if (Object.keys(errors).length > 0) {
             return alert('Ups faltó algo')
@@ -141,7 +155,6 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            console.log('enter >>> videogame')
             history.push(`/videogame/${id}`)
         } else {
             dispatch(postVideogame(input))
@@ -157,13 +170,15 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            console.log('enter >>> home')
             history.push('/home')
         }
     }
-    const enterinput = (e) => {
-        e.key === 'Enter' && e.preventDefault();
-        e.target?.nextElementSibling?.nextElementSibling?.id && document.getElementById(e.target.nextElementSibling.nextElementSibling.id).focus()
+    const enterinput = (e, ref) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            ref?.current.focus()
+        }
+        return
     }
 
     return (
@@ -184,7 +199,9 @@ export default function Anewvideogame() {
                     onChange={handleChange}
                     placeholder='Nombre del juego*'
                     className={addvgstyles.inputtext}
-                    onKeyPress={enterinput}
+                    onKeyDown={e => enterinput(e, inputReleased)}
+                    ref={inputnombre}
+                    id='name'
                 />
                 {errors.name ? (<p className={addvgstyles.error}>{errors.name}</p>) : delete errors.name}
 
@@ -197,7 +214,8 @@ export default function Anewvideogame() {
                     onChange={handleChange}
                     className={addvgstyles.inputtext}
                     id='relesed'
-                    onKeyPress={enterinput}
+                    onKeyDown={e => enterinput(e, inputnumber)}
+                    ref={inputReleased}
                 />
 
 
@@ -213,7 +231,8 @@ export default function Anewvideogame() {
                     placeholder='min: 0 - max: 5'
                     className={addvgstyles.inputtext}
                     id='raiting'
-                    onKeyPress={enterinput}
+                    onKeyDown={e => enterinput(e, inputimage)}
+                    ref={inputnumber}
                 />
                 {errors.rating ? (<p className={addvgstyles.error}>{errors.rating}</p>) : delete errors.rating}
 
@@ -227,7 +246,8 @@ export default function Anewvideogame() {
                     className={addvgstyles.inputtext}
                     placeholder="https://example.com/videojuegos.jpg"
                     id='imageurl'
-                    onKeyPress={enterinput}
+                    onKeyDown={e => enterinput(e, inputdescription)}
+                    ref={inputimage}
                 />
                 <div className={addvgstyles.labelcontend}>
                     <label className={addvgstyles.label}>Description</label>
@@ -239,10 +259,11 @@ export default function Anewvideogame() {
                     placeholder='Descripción del juego*'
                     className={addvgstyles.description}
                     id='description'
-                    onKeyPress={enterinput}
+                    onKeyDown={enterinput}
+                    ref={inputdescription}
                 />
                 {errors.description ? (<p className={addvgstyles.error}>{errors.description}</p>) : delete errors.description}
-                <fieldset className={addvgstyles.checked} onKeyPress={enterinput} id='platforms'>
+                <fieldset className={addvgstyles.checked} onKeyDown={enterinput} id='platforms'>
                     <legend className={addvgstyles.legend}>Platfomrs</legend>
                     {Platfoms?.map((pt) => {
                         return <div className={addvgstyles.input} key={pt.id}>
@@ -253,7 +274,8 @@ export default function Anewvideogame() {
                                 name={pt.name}
                                 value={pt.id}
                                 checked={!!input.platforms?.find((name) => name === pt.name)}
-                                id = {pt.name}
+                                id={pt.name}
+
                             /><label
                                 className={addvgstyles.labelch} id={pt.name}
                             >{pt.name}</label>
@@ -261,7 +283,7 @@ export default function Anewvideogame() {
                     })}
                     {errors.platforms ? (<p className={addvgstyles.error}>{errors.platforms}</p>) : delete errors.platforms}
                 </fieldset>
-                <fieldset className={addvgstyles.checked} onKeyPress={enterinput} id='genres'>
+                <fieldset className={addvgstyles.checked} onKeyDown={enterinput} id='genres'>
                     <legend className={addvgstyles.legend}>Genres</legend>
                     {getgenres?.map((gen) => {
                         return <div className={addvgstyles.input} key={gen.id}>
