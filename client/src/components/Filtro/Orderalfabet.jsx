@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import HomeStyles from '../home/home.module.css'
 
-const Orderalfabet = ({ handleOrderAlfabet }) => {
-    const [currentValue, setValue] = useState('Filtra por generos')
+const Orderalfabet = ({ handleOrderAlfabet, value }) => {
     return (
-        <select className={HomeStyles.select} value={currentValue} onChange={e => { setValue(e.target.value); handleOrderAlfabet(e) }}>
-            <optgroup label="Ordena por orden alfabetico">
-                <option value='Ordena por orden alfabetico' disabled hidden>Ordena por orden alfabetico</option>
-                <option value='asd'>Ascendente</option>
-                <option value='des'>Descendente</option>
+        <select className={HomeStyles.select} value={value} onChange={handleOrderAlfabet}>
+            <optgroup label="Orden alfabetico">
+                <option value='Orden alfabetico' disabled hidden>Orden alfabetico</option>
+                <option value='asd'>🔼 A➡Z</option>
+                <option value='des'>🔽 Z⬅A</option>
             </optgroup>
         </select>
     )

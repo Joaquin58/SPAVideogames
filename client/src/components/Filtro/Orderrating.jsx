@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import HomeStyles from '../home/home.module.css'
 
-const Orderrating = ({ handleOrderRating }) => {
-    const [currentValue, setValue] = useState('Ordena por rating')
+const Orderrating = ({ handleOrderRating, value }) => {
+
     return (
-        <select className={HomeStyles.select} value={currentValue} onChange={e => { setValue(e.target.value); handleOrderRating(e) }}>
+        <select className={HomeStyles.select} value={value} onChange={handleOrderRating}>
             <optgroup label="Ordena por rating">
                 <option value='Ordena por rating' disabled hidden>Ordena por rating</option>
                 <option value='max'>🔼Mayor</option>

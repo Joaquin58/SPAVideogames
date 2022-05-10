@@ -34,9 +34,13 @@ export default function Home() {
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
-
     const [, setOrden] = useState('')
-
+    const [filters, setFilters] = useState({
+        exist: "Filtra por existente o creado",
+        genres: "Filtra por generos",
+        alfabet: 'Orden alfabetico',
+        rating: "Ordena por rating"
+    })
     //* --- Paginado ---*
     if (Array.isArray(allVideogames)) {
         var indexOfLastVideogame = CuerrentPage * VideogamesforPage     //todo: calcula el numero del ultimo juego
@@ -63,30 +67,69 @@ export default function Home() {
     function handleOrderAlfabet(e) {
         e.preventDefault()
         setCurrentPage(1)
+        dispatch(savePage('1'))
         dispatch(orderchange(e.target.value))
         dispatch(filterVideogamesAndNameBk(name, e.target.value))
+        setFilters({
+            ...filters,
+            alfabet: e.target.value,
+            rating: "Ordena por rating"
+        })
     }
 
     function handleOrderRating(e) {
         e.preventDefault()
         setCurrentPage(1)
+        dispatch(savePage('1'))
         dispatch(orderVideogamesByRaiting(e.target.value))
         //modifica el estado local para que se renderize por un cambio
         setOrden(`Ordenado ${e.target.value}`)
+        setFilters({
+            ...filters,
+            rating: e.target.value,
+            alfabet: 'Orden alfabetico',
+        })
     }
 
     function handleFilterCreated(e) {
         setCurrentPage(1)
+        dispatch(savePage('1'))
         dispatch(filterVideogamesCreated(e.target.value))
+        setFilters({
+            ...filters,
+            exist: e.target.value,
+            genres: "Filtra por generos",
+            alfabet: 'Orden alfabetico',
+            rating: "Ordena por rating"
+        })
     }
 
     function allinone(e) {
         setCurrentPage(1)
+        dispatch(savePage('1'))
         dispatch(filterVideogamesAndNameBk(name, order, e.target.value))
-        dispatch(savePage(''))
+        setFilters({
+            ...filters,
+            exist: "Filtra por existente o creado",
+            genres: e.target.value
+        })
     }
 
+    function handleReset(e) {
+        e.preventDefault()
+        setFilters({
+            ...filters,
+            exist: "Filtra por existente o creado",
+            genres: "Filtra por generos",
+            alfabet: 'Orden alfabetico',
+            rating: "Ordena por rating"
 
+        })
+        dispatch(getVideogames())
+        setCurrentPage(1)
+        dispatch(savePage('1'))
+
+    }
     return (
         <>
             {
@@ -100,11 +143,12 @@ export default function Home() {
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             <SearchBar setCurrentPage={setCurrentPage} />
                             <div className={HomeStyles.selecters}>
-                                <Filtexist handleFilterCreated={handleFilterCreated} />
-                                <Filtgenres allGenres={allGenres} allinone={allinone} />
-                                <Orderalfabet handleOrderAlfabet={handleOrderAlfabet} />
-                                <Orderrating handleOrderRating={handleOrderRating} />
+                                <Filtexist handleFilterCreated={handleFilterCreated} value={filters.exist} setFilters={setFilters} />
+                                <Filtgenres allGenres={allGenres} allinone={allinone} value={filters.genres} />
+                                <Orderalfabet handleOrderAlfabet={handleOrderAlfabet} value={filters.alfabet} />
+                                < Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
                             </div>
+                            <button onClick={handleReset}>Reset</button>
                         </nav>
                         <Paginado
                             videogamesForPage={VideogamesforPage}
