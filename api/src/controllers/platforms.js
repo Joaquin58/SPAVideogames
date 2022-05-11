@@ -1,9 +1,9 @@
 const reducePlatfomr = require('../middlewares/reduceplatforms.js')
 const platforms = async (req, res) => {
     try {
-        res.json(await reducePlatfomr())
+        res.status(200).json(await reducePlatfomr())
     } catch (error) {
-        res.json(err)
+        res.status(500).json(error)
     }
 }
 
