@@ -39,7 +39,7 @@ const traertodoBd = async () => {
             }
         }
     })
-    return allrequestBd
+    return reducedata(allrequestBd)
 }
 
 module.exports = {

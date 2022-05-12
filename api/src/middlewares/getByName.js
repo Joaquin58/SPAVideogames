@@ -1,12 +1,13 @@
 const axios = require('axios')
 const { Op } = require('sequelize')
 const { Videogame, Genre } = require('../db')
+const reducedata = require('./reducedata')
 const { API_KEY } = process.env
 const ENDPAPI2 = 'https://api.rawg.io/api/games?search='
 
 const getByName = async (name) => {
     const { data: { results } } = await axios.get(`${ENDPAPI2}${name}&key=${API_KEY}`)
-    return results
+    return reducedata(results).slice(0, 15)
 }
 const getByNameDb = async (name) => {
     const nameBd = await Videogame.findAll({
@@ -19,7 +20,7 @@ const getByNameDb = async (name) => {
             }
         }
     })
-    return nameBd
+    return reducedata(nameBd).slice(0, 15)
 }
 
 
