@@ -15,6 +15,7 @@ export const ORDER_TYPE = 'ORDER_TYPE'
 export const PAG_UPDATE = 'PAG_UPDATE'
 export const UPDATE_GAME = 'UPDATE_GAME'
 export const DELETE_GAME = 'DELETE_GAME'
+export const FILT_AND_ORDER = 'FILT_AND_ORDER'
 
 // const URL = 'http://localhost:3001'
 
@@ -172,6 +173,14 @@ export const deletegame = (id) => {
     return async (dispatch) => {
         const { data } = await axios.delete(`/delete/${id}`)
         const payload = data
-            dispatch({type:DELETE_GAME, payload})
+        dispatch({ type: DELETE_GAME, payload })
+    }
+}
+
+export const filterandorder = (filters) => {
+    return async function (dispatch) {
+        const { data } = await axios.post('/filtandorder', filters)
+        const payload = data
+        return dispatch({ type: FILT_AND_ORDER, payload })
     }
 }

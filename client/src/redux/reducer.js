@@ -118,6 +118,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state
       }
+      case FILT_AND_ORDER:
+        return {
+          ...state,
+          videogames: payload
+        }
     default:
       return state;
   }
