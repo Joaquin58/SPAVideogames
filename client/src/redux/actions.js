@@ -6,7 +6,7 @@ export const GET_GN = 'GET_GN'                  //* Todos los generos
 export const POST_VG = 'POST_VG'                //* Postear un juego
 export const FL_DBVG = 'FL_DBVG'                //* Filtro de los juegos creados por el usuario
 export const ORD_BYNM = 'ORD_BYNM'              //* ordenado por nombre
-export const ORD_BYRT = 'ORD_BYRT'              //* ordenado por nombre
+export const ORD_BYRT = 'ORD_BYRT'              //* ordenado por rating
 export const GET_PT = 'GET_PT'                  //* obtener plataformas desponibles
 export const ORD_BYNMBK = 'ORD_BYNMBK'
 export const SAVENAME = 'SAVENAME'
@@ -80,11 +80,11 @@ export const postVideogame = (body) => {
     }
 }
 
-export const filterVideogamesCreated = (payload) => {
-    return {
-        type: FL_DBVG, payload
-    }
-}
+// export const filterVideogamesCreated = (payload) => {
+//     return {
+//         type: FL_DBVG, payload
+//     }
+// }
 
 export const orderVideogamesByRaiting = (payload) => {
     return {
@@ -118,28 +118,28 @@ export const orderVideogamesByNameBk = (name, order) => {
     }
 }
 
-export const filterVideogamesAndNameBk = (name, order, filtro) => {
-    return async (dispatch) => {
-        if (!(name || order || filtro)) {
-            try {
-                const response = await axios.get(`/videogames`)
-                const payload = response.data
-                return dispatch({ type: FLV_BYGNBK, payload })
-            } catch (err) {
-                return dispatch({ type: FLV_BYGNBK, payload: ['error'] })
-            }
-        } else if (name || order || filtro) {
-            try {
-                const response = await axios.get(`/videogames?name=${name ? name : ''}&order=${order ? order : ''}&filtro=${filtro ? filtro : ''}`)
-                const payload = response.data
-                return dispatch({ type: FLV_BYGNBK, payload })
-            } catch (error) {
+// export const filterVideogamesAndNameBk = (name, order, filtro) => {
+//     return async (dispatch) => {
+//         if (!(name || order || filtro)) {
+//             try {
+//                 const response = await axios.get(`/videogames`)
+//                 const payload = response.data
+//                 return dispatch({ type: FLV_BYGNBK, payload })
+//             } catch (err) {
+//                 return dispatch({ type: FLV_BYGNBK, payload: ['error'] })
+//             }
+//         } else if (name || order || filtro) {
+//             try {
+//                 const response = await axios.get(`/videogames?name=${name ? name : ''}&order=${order ? order : ''}&filtro=${filtro ? filtro : ''}`)
+//                 const payload = response.data
+//                 return dispatch({ type: FLV_BYGNBK, payload })
+//             } catch (error) {
 
-            }
-        }
+//             }
+//         }
 
-    }
-}
+//     }
+// }
 
 export const orderchange = (payload) => {
     if (payload === undefined) {
@@ -184,8 +184,15 @@ export const filterandorder = (filters) => {
             const payload = data
             return dispatch({ type: FILT_AND_ORDER, payload })
         } catch (error) {
+            dispatch({ type: FILT_AND_ORDER, payload:[] })
             return error
         }
 
+    }
+}
+
+export const orderVideogamesByName = (payload) => {
+    return {
+        type: ORD_BYNM, payload
     }
 }
