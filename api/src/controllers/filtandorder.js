@@ -2,14 +2,16 @@ const { filterexist, filterbygenres, orderbyalfabet, filterexistbyname } = requi
 const filtandorder = async (req, res) => {
     const { name, status, genres, alfabet } = req.body
     try {
-        if (name.lenght > 0) {
+        if (!name.length > 0) {
             const existorcreate = await filterexist(status)
+            if ((genres === "Filtra por generos" && alfabet === 'Orden alfabetico')) return res.status(200).json(existorcreate);
             const filtergenres = await filterbygenres(genres, existorcreate)
             const orderbyabc = await orderbyalfabet(alfabet, filtergenres)
             return res.status(200).json(orderbyabc)
         } else {
             const existorcreate = await filterexistbyname(status, name)
             if (!existorcreate.length > 0) return res.status(404).json('No Encotrado')
+            if (!(genres !== "Filtra por generos" && alfabet !== 'Orden alfabetico')) return res.status(200).json(existorcreate);
             const filtergenres = await filterbygenres(genres, existorcreate)
             const orderbyabc = await orderbyalfabet(alfabet, filtergenres)
             return res.status(200).json(orderbyabc)
