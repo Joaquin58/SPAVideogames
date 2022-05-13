@@ -39,7 +39,7 @@ export default function Home() {
     const [, setOrden] = useState('')
     const [filters, setFilters] = useState({
         name: '',
-        exist: "Filtra por existente o creado",
+        status: "Filtra por existente o creado",
         genres: "Filtra por generos",
         alfabet: 'Orden alfabetico',
         rating: "Ordena por rating",
@@ -174,7 +174,7 @@ export default function Home() {
 
 
                                 <div className={HomeStyles.selecters}>
-                                    <Filtexist handleFilterCreated={searchbyfilters} value={filters.exist} />
+                                    <Filtexist handleFilterCreated={searchbyfilters} value={filters.status} />
                                     <Filtgenres allGenres={allGenres} allinone={searchbyfilters} value={filters.genres} />
                                     <Orderalfabet handleOrderAlfabet={searchbyfilters} value={filters.alfabet} />
                                     <Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
