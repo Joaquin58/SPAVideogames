@@ -7,7 +7,7 @@ const Orderalfabet = ({ handleOrderAlfabet, value }) => {
             <optgroup label="Orden alfabetico">
                 <option value='Orden alfabetico' disabled hidden>Orden alfabetico</option>
                 <option value='asd'>🔼 A➡Z</option>
-                <option value='des'>🔽 Z⬅A</option>
+                <option value='des'>🔽 Z➡A</option>
             </optgroup>
         </select>
     )

@@ -5,12 +5,13 @@ import {
     getVideogames,
     getGenres,
     orderVideogamesByRaiting,
-    filterVideogamesCreated,
-    filterVideogamesAndNameBk,
+    // filterVideogamesCreated,
+    // filterVideogamesAndNameBk,
     orderchange,
     saveName,
     savePage,
-    filterandorder
+    filterandorder,
+    orderVideogamesByName
 } from '../../redux/actions.js'
 import SearchBar from "../Search/SearchBar.jsx";
 import Card from '../Card/card.jsx'
@@ -19,7 +20,7 @@ import Loading from '../images/charge.gif'
 import NotFound from '../images/gameovertransparent.png'
 import NotResults from '../images/not-found-icon-15.jpg'
 import HomeStyles from '../home/home.module.css'
-import Searchstyle from '../Search/search.module.css'
+// import Searchstyle from '../Search/search.module.css'
 import Filtexist from "../Filtro/Filtexist.jsx";
 import Filtgenres from "../Filtro/Filtgenres.jsx";
 import Orderalfabet from "../Filtro/Orderalfabet.jsx";
@@ -30,9 +31,9 @@ export default function Home() {
 
     const allVideogames = useSelector((state) => state.videogames)
     const Videogames = useSelector((state) => state.allVideogames)
-    const name = useSelector(state => state.savename)
+    // const name = useSelector(state => state.savename)
     const allGenres = useSelector(state => state.genres)
-    const order = useSelector(state => state.ordertype)
+    // const order = useSelector(state => state.ordertype)
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
@@ -66,61 +67,70 @@ export default function Home() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        dispatch(orderchange())
-        dispatch(getVideogames())
-    }
-
-    function handleOrderAlfabet(e) {
-        e.preventDefault()
-        setCurrentPage(1)
-        dispatch(savePage('1'))
-        dispatch(orderchange(e.target.value))
-        dispatch(filterVideogamesAndNameBk(name, e.target.value))
         setFilters({
-            ...filters,
-            alfabet: e.target.value,
-            rating: "Ordena por rating"
-        })
-    }
-
-    function handleOrderRating(e) {
-        e.preventDefault()
-        setCurrentPage(1)
-        dispatch(savePage('1'))
-        dispatch(orderVideogamesByRaiting(e.target.value))
-        //modifica el estado local para que se renderize por un cambio
-        setOrden(`Ordenado ${e.target.value}`)
-        setFilters({
-            ...filters,
-            rating: e.target.value,
-            alfabet: 'Orden alfabetico',
-        })
-    }
-
-    function handleFilterCreated(e) {
-        setCurrentPage(1)
-        dispatch(savePage('1'))
-        dispatch(filterVideogamesCreated(e.target.value))
-        setFilters({
-            ...filters,
-            exist: e.target.value,
+            status: "Filtra por existente o creado",
             genres: "Filtra por generos",
             alfabet: 'Orden alfabetico',
-            rating: "Ordena por rating"
+            rating: "Ordena por rating",
+            name: ''
         })
-    }
-
-    function allinone(e) {
+        dispatch(orderchange())
+        dispatch(getVideogames())
         setCurrentPage(1)
         dispatch(savePage('1'))
-        dispatch(filterVideogamesAndNameBk(name, order, e.target.value))
-        setFilters({
-            ...filters,
-            exist: "Filtra por existente o creado",
-            genres: e.target.value
-        })
     }
-
+    /*
+        function handleOrderAlfabet(e) {
+            e.preventDefault()
+            setCurrentPage(1)
+            dispatch(savePage('1'))
+            dispatch(orderchange(e.target.value))
+            dispatch(filterVideogamesAndNameBk(name, e.target.value))
+            setFilters({
+                ...filters,
+                alfabet: e.target.value,
+                rating: "Ordena por rating"
+            })
+        }
+    
+        function handleOrderRating(e) {
+            e.preventDefault()
+            setCurrentPage(1)
+            dispatch(savePage('1'))
+            // dispatch(orderVideogamesByRaiting(e.target.value))
+            //modifica el estado local para que se renderize por un cambio
+            setOrden(`Ordenado ${e.target.value}`)
+            setFilters({
+                ...filters,
+                rating: e.target.value,
+                alfabet: 'Orden alfabetico',
+            })
+        }
+    
+        function handleFilterCreated(e) {
+            setCurrentPage(1)
+            dispatch(savePage('1'))
+            dispatch(filterVideogamesCreated(e.target.value))
+            setFilters({
+                ...filters,
+                exist: e.target.value,
+                genres: "Filtra por generos",
+                alfabet: 'Orden alfabetico',
+                rating: "Ordena por rating"
+            })
+        }
+    
+        function allinone(e) {
+            setCurrentPage(1)
+            dispatch(savePage('1'))
+            dispatch(filterVideogamesAndNameBk(name, order, e.target.value))
+            setFilters({
+                ...filters,
+                exist: "Filtra por existente o creado",
+                genres: e.target.value
+            })
+        }
+    */
     function handleReset(e) {
         e.preventDefault()
         setFilters({
@@ -130,22 +140,37 @@ export default function Home() {
             rating: "Ordena por rating",
             name: ''
         })
-        dispatch(getVideogames())
-        setCurrentPage(1)
-        dispatch(savePage('1'))
+        // dispatch(getVideogames())
+        // setCurrentPage(1)
+        // dispatch(savePage('1'))
 
     }
 
     function searchbyfilters(e) {
         e.preventDefault()
         setFilters({ ...filters, [e.target.name]: e.target.value })
-
-
     }
+
+    async function handelorders(e) {
+        e.preventDefault()
+        if (e.target.name === 'alfabet') {
+            setFilters({ ...filters, [e.target.name]: e.target.value, rating: "Ordena por rating" })
+        } else if (e.target.name === 'rating') {
+            setFilters({
+                ...filters, [e.target.name]: e.target.value, alfabet: 'Orden alfabetico',
+            })
+        }
+    }
+
     async function submitfilters(e) {
         e.preventDefault()
-        console.log(filters)
         await dispatch(filterandorder(filters));
+        let { alfabet } = filters
+        dispatch(orderVideogamesByName(alfabet))
+        setOrden(`Ordenado ${alfabet}`)
+        let { rating } = filters
+        dispatch(orderVideogamesByRaiting(rating))
+        setOrden(`Ordenado ${rating}`)
         setCurrentPage(1);
         dispatch(savePage('1'));
         dispatch(saveName(''))
@@ -176,8 +201,8 @@ export default function Home() {
                                 <div className={HomeStyles.selecters}>
                                     <Filtexist handleFilterCreated={searchbyfilters} value={filters.status} />
                                     <Filtgenres allGenres={allGenres} allinone={searchbyfilters} value={filters.genres} />
-                                    <Orderalfabet handleOrderAlfabet={searchbyfilters} value={filters.alfabet} />
-                                    <Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
+                                    <Orderalfabet handleOrderAlfabet={handelorders} value={filters.alfabet} />
+                                    <Orderrating handleOrderRating={handelorders} value={filters.rating} />
                                     <button type="Submit">filtrar</button>
                                 </div>
                             </form>

@@ -14,7 +14,8 @@ import {
   PAG_UPDATE,
   UPDATE_GAME,
   DELETE_GAME,
-  FILT_AND_ORDER
+  FILT_AND_ORDER,
+  ORD_BYNM
 } from './actions'
 
 const initialState = {
@@ -67,7 +68,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         }
 
         return 0;
-      }) : state.videogames.sort(function (a, b) {
+      }) :  payload === 'min' ? state.videogames.sort(function (a, b) {
         if (a.rating > b.rating) {
           return 1;
         }
@@ -76,7 +77,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         }
 
         return 0;
-      })
+      }) : state.videogames
       return {
         ...state,
         videogames: ratingorder
@@ -120,9 +121,36 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state
       }
     case FILT_AND_ORDER:
-      
       return {
         ...state, videogames: payload
+      }
+    case ORD_BYNM:
+      const nameorder = payload === 'asd' ?
+        state.videogames.sort(function (a, b) {
+          const onename = a.name.toLowerCase()
+          const twoname = b.name.toLowerCase()
+          if (onename > twoname) {
+            return 1;
+          }
+          if (onename < twoname) {
+            return -1;
+          }
+
+          return 0;
+        })
+        : payload === 'des' ? state.videogames.sort(function (a, b) {
+          const onename = a.name.toLowerCase()
+          const twoname = b.name.toLowerCase()
+          if (onename < twoname) {
+            return 1;
+          }
+          if (onename > twoname) {
+            return -1;
+          }
+          return 0;
+        }): state.videogames
+      return {
+        ...state, videogames: nameorder
       }
     default:
       return state;
