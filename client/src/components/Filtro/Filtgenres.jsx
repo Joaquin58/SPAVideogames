@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './filtro.module.css'
 
-const Filtgenres = ({ allGenres, allinone }) => {
-    const [currentValue, setValue] = useState('Filtra por generos')
+const Filtgenres = ({ allGenres, allinone, value }) => {
+    
     return (
-        <select className={styles.filters} value={currentValue} onChange={e => { setValue(e.target.value); allinone(e) }}>
+        <select className={styles.filters} value={value} onChange={allinone} name='genres'>
             <optgroup label="Filtra por generos">
                 <option value='Filtra por generos' disabled hidden >Filtra por generos</option>
                 <option value='ALL'>All</option>

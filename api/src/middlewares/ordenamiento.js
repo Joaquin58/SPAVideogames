@@ -10,7 +10,7 @@ function orderbyname(orden, all) {
         }
 
         return 0;
-    }) : all.sort(function (a, b) {
+    }) : orden === 'des' ? all.sort(function (a, b) {
         const onename = a.name.toLowerCase()
         const twoname = b.name.toLowerCase()
         if (onename < twoname) {
@@ -20,8 +20,8 @@ function orderbyname(orden, all) {
             return -1;
         }
         return 0;
-    })
+    }) : all
     return nameorder
 }
 
-module.exports=orderbyname
+module.exports = orderbyname

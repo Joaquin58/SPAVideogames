@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
-import { getVideogameById } from '../../redux/actions'
+import { 
+    getVideogameById,
+    deletegame
+ } from '../../redux/actions'
 import imagedefault from '../images/createdefault.jpg'
 import Loading from '../images/charge.gif'
 import gamestyles from './game.module.css'
@@ -20,8 +23,14 @@ const Game = () => {
     }, [dispatch, vgid])
 
     if (idvideogame) {
-        var { image, genres, description, name, platforms, rating, released, CreatedInDb } = idvideogame
+        var {id, image, genres, description, name, platforms, rating, released, CreatedInDb } = idvideogame
         var defaultimage = image === null || image === undefined ? imagedefault : image.length === 0 ? imagedefault : image
+    }
+
+    const handledelete = (e) =>{
+        e.preventDefault()
+        dispatch(deletegame(id))
+        alert('Juego eliminado') 
     }
 
     return (
@@ -41,9 +50,14 @@ const Game = () => {
                                 <h1 className={gamestyles.title}>{name}</h1>
                                 {
                                     CreatedInDb
-                                        ? <Link to={`/editgame/${vgid}`}>
-                                            <button className={gamestyles.buttondelete}>Eddit</button>
-                                        </Link>
+                                        ? <>
+                                            <Link to={`/editgame/${vgid}`}>
+                                                <button className={gamestyles.buttonedit}>Eddit</button>
+                                            </Link>
+                                            <>
+                                                <button className={gamestyles.buttondelete} onClick={handledelete}>Delete</button>
+                                            </>
+                                        </>
                                         : <></>
                                 }
                             </div>

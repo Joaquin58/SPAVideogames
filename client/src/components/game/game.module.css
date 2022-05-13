@@ -15,7 +15,7 @@
         0 0 102px #ff2a00,
         0 0 151px #ff2a00;
 }
-.button, .buttondelete {
+.button, .buttonedit, .buttondelete {
     position: absolute;
     background: #ff2a00;
     box-shadow:
@@ -37,10 +37,15 @@
     top: 0.4rem;
     left: 1em;
 }
-.buttondelete {
+.buttonedit {
     top: auto;
     left: 0;
-    bottom: 0;
+    bottom: 0.5rem;
+}
+.buttondelete {
+    top: auto;
+    left: 10em ;
+    bottom: 0.5rem;
 }
 .contend {
     /* display: flex; */

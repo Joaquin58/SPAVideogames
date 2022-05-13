@@ -4,7 +4,7 @@ import imagedefault from '../images/createdefault.jpg'
 import cardstyles from './card.module.css'
 
 const game = ({ id, image, name, genres }) => {
-    var defaultimage = image === undefined || image.length === 0 ? imagedefault : image
+    var defaultimage =  image === null || image === undefined || image.length === 0 ? imagedefault : image
     return (
         <div className={cardstyles.caja}>
             <div className={cardstyles.box}>
