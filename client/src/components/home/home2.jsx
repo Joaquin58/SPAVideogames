@@ -9,7 +9,8 @@ import {
     filterVideogamesAndNameBk,
     orderchange,
     saveName,
-    savePage
+    savePage,
+    filterandorder
 } from '../../redux/actions.js'
 import SearchBar from "../Search/SearchBar.jsx";
 import Card from '../Card/card.jsx'
@@ -18,6 +19,7 @@ import Loading from '../images/charge.gif'
 import NotFound from '../images/gameovertransparent.png'
 import NotResults from '../images/not-found-icon-15.jpg'
 import HomeStyles from '../home/home.module.css'
+import Searchstyle from '../Search/search.module.css'
 import Filtexist from "../Filtro/Filtexist.jsx";
 import Filtgenres from "../Filtro/Filtgenres.jsx";
 import Orderalfabet from "../Filtro/Orderalfabet.jsx";
@@ -36,11 +38,13 @@ export default function Home() {
     const [VideogamesforPage] = useState(15)
     const [, setOrden] = useState('')
     const [filters, setFilters] = useState({
+        name: '',
         exist: "Filtra por existente o creado",
         genres: "Filtra por generos",
         alfabet: 'Orden alfabetico',
-        rating: "Ordena por rating"
+        rating: "Ordena por rating",
     })
+
     //* --- Paginado ---*
     if (Array.isArray(allVideogames)) {
         var indexOfLastVideogame = CuerrentPage * VideogamesforPage     //todo: calcula el numero del ultimo juego
@@ -50,6 +54,8 @@ export default function Home() {
     }
 
     const paginado = (pageNumber) => setCurrentPage(pageNumber)
+
+
 
     useEffect(() => {
         dispatch(getVideogames())
@@ -118,17 +124,31 @@ export default function Home() {
     function handleReset(e) {
         e.preventDefault()
         setFilters({
-            ...filters,
-            exist: "Filtra por existente o creado",
+            status: "Filtra por existente o creado",
             genres: "Filtra por generos",
             alfabet: 'Orden alfabetico',
-            rating: "Ordena por rating"
-
+            rating: "Ordena por rating",
+            name: ''
         })
         dispatch(getVideogames())
         setCurrentPage(1)
         dispatch(savePage('1'))
 
+    }
+
+    function searchbyfilters(e) {
+        e.preventDefault()
+        setFilters({ ...filters, [e.target.name]: e.target.value })
+
+
+    }
+    async function submitfilters(e) {
+        e.preventDefault()
+        console.log(filters)
+        await dispatch(filterandorder(filters));
+        setCurrentPage(1);
+        dispatch(savePage('1'));
+        dispatch(saveName(''))
     }
     return (
         <>
@@ -141,13 +161,26 @@ export default function Home() {
                             </Link>
                             <h1>Videogames</h1>
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
-                            <SearchBar setCurrentPage={setCurrentPage} />
-                            <div className={HomeStyles.selecters}>
+                            {/* <SearchBar setCurrentPage={setCurrentPage} /> */}
+                            <form onSubmit={submitfilters}>
+                                <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} />
+                                {/* <div className={HomeStyles.selecters}>
                                 <Filtexist handleFilterCreated={handleFilterCreated} value={filters.exist} setFilters={setFilters} />
                                 <Filtgenres allGenres={allGenres} allinone={allinone} value={filters.genres} />
                                 <Orderalfabet handleOrderAlfabet={handleOrderAlfabet} value={filters.alfabet} />
-                                < Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
-                            </div>
+                                <Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
+                                <button onClick={searchbyfilters}>filtrar</button>
+                            </div> */}
+
+
+                                <div className={HomeStyles.selecters}>
+                                    <Filtexist handleFilterCreated={searchbyfilters} value={filters.exist} />
+                                    <Filtgenres allGenres={allGenres} allinone={searchbyfilters} value={filters.genres} />
+                                    <Orderalfabet handleOrderAlfabet={searchbyfilters} value={filters.alfabet} />
+                                    <Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
+                                    <button type="Submit">filtrar</button>
+                                </div>
+                            </form>
                             <button onClick={handleReset}>Reset</button>
                         </nav>
                         <Paginado
