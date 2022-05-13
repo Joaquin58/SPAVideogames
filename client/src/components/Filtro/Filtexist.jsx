@@ -4,7 +4,7 @@ import styles from './filtro.module.css'
 const Filtexist = ({ handleFilterCreated, value }) => {
 
     return (
-        <select className={styles.filters} value={value} onChange={handleFilterCreated}>
+        <select className={styles.filters} value={value} onChange={handleFilterCreated} name='status'>
             <optgroup label="Filtra por existente o creado">
                 <option value='All'>All</option>
                 <option value='Filtra por existente o creado' disabled hidden>Filtra por existente o creado</option>
