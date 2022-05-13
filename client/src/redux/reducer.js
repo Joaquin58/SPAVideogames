@@ -13,7 +13,8 @@ import {
   ORDER_TYPE,
   PAG_UPDATE,
   UPDATE_GAME,
-  DELETE_GAME
+  DELETE_GAME,
+  FILT_AND_ORDER
 } from './actions'
 
 const initialState = {
@@ -118,11 +119,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state
       }
-      case FILT_AND_ORDER:
-        return {
-          ...state,
-          videogames: payload
-        }
+    case FILT_AND_ORDER:
+      
+      return {
+        ...state, videogames: payload
+      }
     default:
       return state;
   }

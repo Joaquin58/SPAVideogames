@@ -179,8 +179,13 @@ export const deletegame = (id) => {
 
 export const filterandorder = (filters) => {
     return async function (dispatch) {
-        const { data } = await axios.post('/filtandorder', filters)
-        const payload = data
-        return dispatch({ type: FILT_AND_ORDER, payload })
+        try {
+            const { data } = await axios.post('/filtandorder', filters)
+            const payload = data
+            return dispatch({ type: FILT_AND_ORDER, payload })
+        } catch (error) {
+            return error
+        }
+
     }
 }
