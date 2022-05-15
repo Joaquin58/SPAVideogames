@@ -11,7 +11,6 @@ const allgames = async (req, res) => {
             const allrequestApi = await parallel()
             const allrequestBd = await traertodoBd()
             const allrequest = [...allrequestBd, ...allrequestApi]
-            console.log(allrequest.length)
             return res.status(200).json(allrequest)
         } else {
             const resultadosApi = await getByName(name)
