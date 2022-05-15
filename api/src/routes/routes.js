@@ -8,6 +8,8 @@ const platforms = require('../controllers/platforms.js')
 const putgame = require('../controllers/putgame.js')
 const deletegame = require('../controllers/deletegame.js')
 const filtandorder = require('../controllers/filtandorder.js')
+const seccuential = require('../controllers/seccuential.js');
+const parallel = require('../controllers/parallel.js');
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -33,5 +35,9 @@ router.put('/update/:id', putgame)
 router.delete('/delete/:id', deletegame)
 
 router.post('/filtandorder', filtandorder)
+
+router.get('/seccuentialadvance', seccuential)
+
+router.get('/parallel', parallel)
 
 module.exports = router;
