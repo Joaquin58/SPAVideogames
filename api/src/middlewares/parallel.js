@@ -11,7 +11,7 @@ async function getGamepage(numpage) {
 
 }
 const parallel = async () => {
-    const allgames = await Promise.all(pagesnums.map(async (num) => getGamepage(num)))
+    const [allgames] = await Promise.all(pagesnums.map(async (num) => getGamepage(num)))
     return allgames
 }
 
