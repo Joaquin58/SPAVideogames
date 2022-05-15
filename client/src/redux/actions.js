@@ -32,13 +32,13 @@ export const getVideogames = () => {
     }
 }
 
-export const getVideogameByName = (name) => {
-    return async (dispatch) => {
-        const response = await axios.get(`/videogames?name=${name}`)
-        const payload = response.data
-        dispatch({ type: GET_VG, payload })
-    }
-}
+// export const getVideogameByName = (name) => {
+//     return async (dispatch) => {
+//         const response = await axios.get(`/videogames?name=${name}`)
+//         const payload = response.data
+//         dispatch({ type: GET_VG, payload })
+//     }
+// }
 
 export const getVideogameById = (id) => {
     return async (dispatch) => {
@@ -100,23 +100,23 @@ export const getPlatforms = () => {
     }
 }
 
-export const orderVideogamesByNameBk = (name, order) => {
-    return async (dispatch) => {
-        if (!name) {
-            try {
-                const response = await axios.get(`/videogames?order=${order}`)
-                const payload = response.data
-                return dispatch({ type: ORD_BYNMBK, payload })
-            } catch (err) {
-                return dispatch({ type: ORD_BYNMBK, payload: err })
-            }
-        } else if (name && order) {
-            const response = await axios.get(`/videogames?name=${name}&order=${order}`)
-            const payload = response.data
-            dispatch({ type: ORD_BYNMBK, payload })
-        }
-    }
-}
+// export const orderVideogamesByNameBk = (name, order) => {
+//     return async (dispatch) => {
+//         if (!name) {
+//             try {
+//                 const response = await axios.get(`/videogames?order=${order}`)
+//                 const payload = response.data
+//                 return dispatch({ type: ORD_BYNMBK, payload })
+//             } catch (err) {
+//                 return dispatch({ type: ORD_BYNMBK, payload: err })
+//             }
+//         } else if (name && order) {
+//             const response = await axios.get(`/videogames?name=${name}&order=${order}`)
+//             const payload = response.data
+//             dispatch({ type: ORD_BYNMBK, payload })
+//         }
+//     }
+// }
 
 // export const filterVideogamesAndNameBk = (name, order, filtro) => {
 //     return async (dispatch) => {

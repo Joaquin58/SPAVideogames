@@ -2,13 +2,14 @@ const { traertodo, traertodoBd } = require('./allgames.js')
 const { getByName, getByNameDb } = require('./getByName')
 const filter = require('./filtros')
 const orderbyname = require('./ordenamiento')
-const filterexist = async (status, name) => {
+const parallel = require('./parallel.js')
+const filterexist = async (status) => {
 
     return status === 'Exist'
-        ? await traertodo()
+        ? await parallel()
         : status === 'Created'
             ? await traertodoBd()
-            : [...await traertodoBd(), ...await traertodo()]
+            : [...await traertodoBd(), ...await parallel()]
 }
 
 const filterbygenres = async (genre, existfilter) => {
