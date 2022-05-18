@@ -25,15 +25,20 @@ const SearchBar = ({ setCurrentPage, setFilters, filters }) => {
     // }
     return (
         // <form className={styles.form} onSubmit={searchbyfilters}>
-        <>
-            <input className={styles.SearchBar} type='text'
-                placeholder="Navega por los juegos"
+        <div className={`${styles.search_box}`}>
+            <input className={styles.search_input} type='text'
+                placeholder="Seacrh Here..."
                 value={name}
                 onChange={e => handleSearch(e)}
                 name='name'
             />
-            <button className={styles.button} type="Submit">Buscar</button>
-        </>
+            <a href='#?search' className={styles.search_btn}>
+                <i className={`${styles.fas} ${styles.fa_search}`}></i>
+                {/* <img className={styles.fassrc} src={logo} alt="busqueda" /> */}
+                
+            </a>
+            {/* <button className={styles.button} type="Submit">Buscar</button> */}
+        </div>
         // </form>
     )
 }

@@ -187,7 +187,7 @@ export default function Home() {
                             <h1>Videogames</h1>
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             {/* <SearchBar setCurrentPage={setCurrentPage} /> */}
-                            <form onSubmit={submitfilters}>
+                            <form onSubmit={submitfilters} className={HomeStyles.form}>
                                 <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} />
                                 {/* <div className={HomeStyles.selecters}>
                                 <Filtexist handleFilterCreated={handleFilterCreated} value={filters.exist} setFilters={setFilters} />
