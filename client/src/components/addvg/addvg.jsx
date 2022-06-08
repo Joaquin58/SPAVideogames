@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate , useParams } from "react-router-dom";
 import {
     postVideogame,
     getGenres,
@@ -31,7 +31,7 @@ const validateerrors = (input) => {
 export default function Anewvideogame() {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const history = useHistory()
+    const navigate = useNavigate()
     const getgenres = useSelector(state => state.genres)
     const Platfoms = useSelector(state => state.plataformas)
 
@@ -155,7 +155,8 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            history.push(`/videogame/${id}`)
+            // history.push(`/videogame/${id}`)
+            navigate(`/videogame/${id}`,)
         } else {
             dispatch(postVideogame(input))
             alert('Videojuego agregado')
@@ -170,7 +171,7 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            history.push('/home')
+            navigate('/home')
         }
     }
     const enterinput = (e, ref) => {

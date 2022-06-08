@@ -46,6 +46,7 @@
     padding: 10px;
     border-radius: 60px;
     cursor: pointer;
+    -webkit-transation: width .2s;
 }
 
 .search_input{
@@ -75,7 +76,8 @@
 
 .search_box:hover > .search_input, 
 .search_input:focus{
-    width: calc(13.5em - 70px);
+    
+    width: calc(13.5em - 15px);
     margin: 0px 0px;
 }
 
