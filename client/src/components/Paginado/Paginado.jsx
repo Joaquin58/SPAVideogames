@@ -46,9 +46,9 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado, c
             }
             <li>
                 <a href={`#?pag=${pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage }`}
-                    onClick={(e) => { paginado(pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage ); hundleActive(e) }}
+                    onClick={(e) => { paginado(pageNumbers.length > 0 && lastPage >= currentPage + 1 ? currentPage + 1 : currentPage ); hundleActive(e) }}
                     className={PaginadoStyles.next}
-                    id={pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage }
+                    id={pageNumbers.length > 0 && lastPage >= currentPage + 1 ? currentPage + 1 : currentPage }
                 >Next</a>
             </li>
         </ul>
