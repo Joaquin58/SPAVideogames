@@ -37,7 +37,7 @@ const Game = () => {
         <>
             {!idvideogame ? <img src={`${Loading}`} alt='Loanding...' /> :
                 <>
-                    <Link to='/home'>
+                    <Link to={'../home'}>
                         <button className={gamestyles.button}>Home</button>
                     </Link>
 
@@ -51,7 +51,7 @@ const Game = () => {
                                 {
                                     CreatedInDb
                                         ? <>
-                                            <Link to={`/editgame/${vgid}`}>
+                                            <Link to={`../editgame/${vgid}`}>
                                                 <button className={gamestyles.buttonedit}>Eddit</button>
                                             </Link>
                                             <>

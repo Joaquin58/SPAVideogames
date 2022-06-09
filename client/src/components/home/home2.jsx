@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
+import { Link, /*Navigate*/ } from "react-router-dom";
 import {
     getVideogames,
     getGenres,
@@ -28,7 +28,7 @@ import Orderrating from "../Filtro/Orderrating.jsx";
 export default function Home() {
 
     const dispatch = useDispatch()
-
+    // const navigate = Navigate()
     const allVideogames = useSelector((state) => state.videogames)
     const Videogames = useSelector((state) => state.allVideogames)
     // const name = useSelector(state => state.savename)
@@ -181,7 +181,7 @@ export default function Home() {
                 Array.isArray(allVideogames) && Videogames.length > 0 ?
                     <>
                         <nav className={HomeStyles.nav}>
-                            <Link to='/makevideogame'>
+                            <Link to={'../makevideogame'}>
                                 <button className={HomeStyles.buttonadd}>Agregar Videogame</button>
                             </Link>
                             <h1>Videogames</h1>
