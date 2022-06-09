@@ -14,12 +14,12 @@ function App() {
           <Route path='/' element={<Landing />} />  {/* Pagina inicial */}
           <Route path='home' element={<Home2 />} />  {/* ruta principal */}
           <Route path='videogame/:vgid' element={<Game />} />  {/* ruta detalles del juego */}
-          <Route exact path='/makevideogame' render={() => <Addvg />} />
-          <Route exact path='/editgame/:id' render={() => <Addvg />} />
+          <Route path='makevideogame' element={<Addvg />} />
+          <Route path='editgame/:id' element={<Addvg />} />
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  );s
 }
 
 export default App;
