@@ -260,7 +260,6 @@ export default function Anewvideogame() {
                     placeholder='Descripción del juego*'
                     className={addvgstyles.description}
                     id='description'
-                    onKeyDown={enterinput}
                     ref={inputdescription}
                 />
                 {errors.description ? (<p className={addvgstyles.error}>{errors.description}</p>) : delete errors.description}
