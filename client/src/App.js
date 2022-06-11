@@ -4,6 +4,7 @@ import Landing from './components/landing/Landing.jsx'
 import Home2 from './components/home/home2.jsx'
 import Game from './components/game/game.jsx'
 import Addvg from './components/addvg/addvg.jsx'
+import Genres from './components/genres/genres';
 
 function App() {
   return (
@@ -16,10 +17,11 @@ function App() {
           <Route path='videogame/:vgid' element={<Game />} />  {/* ruta detalles del juego */}
           <Route path='makevideogame' element={<Addvg />} />
           <Route path='editgame/:id' element={<Addvg />} />
+          <Route path='genres' element={<Genres />} />
         </Routes>
       </BrowserRouter>
     </div>
-  );s
+  );
 }
 
 export default App;
