@@ -12,7 +12,7 @@ import {
     savePage,
     filterandorder,
     orderVideogamesByName
-} from '../../redux/actions.js'
+} from '../../redux-toolkit/actions.js'
 import SearchBar from "../Search/SearchBar.jsx";
 import Card from '../Card/card.jsx'
 import Paginado from '../Paginado/Paginado.jsx'
@@ -25,9 +25,12 @@ import Filtexist from "../Filtro/Filtexist.jsx";
 import Filtgenres from "../Filtro/Filtgenres.jsx";
 import Orderalfabet from "../Filtro/Orderalfabet.jsx";
 import Orderrating from "../Filtro/Orderrating.jsx";
+import { promisify } from 'util'
+
 export default function Home() {
 
     const dispatch = useDispatch()
+
     // const navigate = Navigate()
     const allVideogames = useSelector((state) => state.videogames)
     const Videogames = useSelector((state) => state.allVideogames)
@@ -59,11 +62,19 @@ export default function Home() {
 
 
     useEffect(() => {
-        dispatch(getVideogames())
-        dispatch(getGenres())
-        dispatch(saveName(''))
-        dispatch(savePage(''))
-    }, [dispatch])
+        async function fetchdata() {
+
+            dispatch(getVideogames())
+            dispatch(getGenres())
+            dispatch(saveName(''))
+            dispatch(savePage(''))
+
+        }
+        fetchdata()
+            .then()
+            .catch(err => console.error(err))
+        // eslint-disable-next-line
+    }, [])
 
     const handleClick = (e) => {
         e.preventDefault();

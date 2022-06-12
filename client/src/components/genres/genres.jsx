@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGenres, vaciarestado } from "../../redux-toolkit/actions";
+import { getGenres } from "../../redux-toolkit/actions";
 
 const Genres = () => {
   const genres = useSelector((state) => state.genres);
@@ -14,16 +14,12 @@ const Genres = () => {
     e.preventDefault();
     dispatch(getGenres());
   };
-  const statedefault = (e) => {
-    e.preventDefault();
-    dispatch(vaciarestado());
-  };
+
 
   return (
     <div>
       genres
       <button onClick={dispatchgenres}>GetGentes</button>{" "}
-      <button onClick={statedefault}>X</button>
 
       {loading ? (
         <div>loading...</div>
