@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getGenres } from "../../redux-toolkit/actions";
+// import { getGenres } from "../../redux-toolkit/actions";
+import { fetchallGenres } from "../../redux-toolkit/slices";
 
 const Genres = () => {
-  const genres = useSelector((state) => state.genres);
+  const genres = useSelector((state) => state.list);
   const loading = useSelector((state) => state.loading);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getGenres());
+    dispatch(fetchallGenres());
+    // eslint-disable-next-line
   }, [dispatch]);
 
   const dispatchgenres = (e) => {
     e.preventDefault();
-    dispatch(getGenres());
+    dispatch(fetchallGenres());
   };
 
 
