@@ -1,87 +1,86 @@
-import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from "axios";
+import { generalSilce } from "./slices/general.slice"
+import { getAllGenres } from "./slices/genres.slice"
+import { savePlatforms } from "./slices/platforms.slice"
 import {
-    GET_VGS,
-    GET_GN,
-    GET_VG_BY_ID,
-    POST_VG,
-    ORD_BYRT,
-    GET_PT,
-    ORDER_TYPE,
-    SAVENAME,
-    PAG_UPDATE,
-    UPDATE_GAME,
-    DELETE_GAME,
-    ORD_BYNM
-} from './consts';
-import axios from 'axios';
-import { FILT_AND_ORDER } from '../redux/actions';
+    saveVideogames,
+    idvideogame,
+    postvideogame,
+    putVideogame,
+    deleteVideogame,
+    filandord,
+    videogamesSlice
+} from "./slices/videogames.slice"
 
+export const {
+    orderchange,
+    saveName,
+    savePage
+} = generalSilce.actions
 
+export const { orderVideogamesByName, orderVideogamesByRaiting } = videogamesSlice.actions
 
+export const getGenres = () => (dispatch) => {
+    axios.get(`/genres`).then(({ data }) => {
+        dispatch(getAllGenres(data))
+    }).catch(err => console.log(err))
+}
 
-export const getVideogames = createAsyncThunk(GET_VGS, async () => {
-    try {
-        const { data } = await axios.get(`/videogames`)
-        const payload = data
-        return payload
-    } catch (err) {
-        return ['error']
-    }
-})
+export const getPlatforms = () => (dispatch) => {
+    axios.get(`/platfoms`).then(({ data }) => {
+        dispatch(savePlatforms(data))
+    }).catch(() => {
+        dispatch(savePlatforms([]))
+    })
+}
 
-export const getVideogameById = createAsyncThunk(GET_VG_BY_ID, async (id) => {
-    if (!id) return undefined
-    try {
-        const { data } = await axios.get(`/videogames/${id}`)
-        if (data) return data
+export const getVideogames = () => (dispatch) => {
+    axios.get(`/videogames`).then(({ data }) => {
+
+        dispatch(saveVideogames(data))
+    }).catch(err => {
+        dispatch(saveVideogames(['error']))
+    });
+}
+
+export const getVideogameById = (id) => (dispatch) => {
+    if (!id) dispatch(idvideogame([]))
+    axios.get(`/videogames/${id}`).then(({ data }) => {
+        if (data) dispatch(idvideogame(data))
         else return null
-    } catch (error) {
-        return null
-    }
-})
+    }).catch(err => err)
+}
 
-export const getGenres = createAsyncThunk(GET_GN, async () => {
-    const { data } = await axios.get(`/genres`)
-    const payload = data
-    return payload
-})
 
 // !trello
-export const postVideogame = createAsyncThunk(POST_VG, async (body) => {
-    const { data } = await axios.post(`/videogame`, body);
-    return data
-})
+export const postVideogame = (data) => (dispatch) => {
+    axios.post(`/videogame`, data).then(({ data }) => {
+        dispatch(postvideogame(true))
+        return
+    }).catch(err => {
+        dispatch(postVideogame(false))
+    })
+}
 
-export const orderVideogamesByRaiting = createAction(ORD_BYRT, payload => payload)
+//!manejo de errores
+export const updateGame = (id, input) => (dispatch) => {
+    axios.put(`/update/${id}`, input).then(({ data }) => {
+        dispatch(putVideogame(true))
+    }).catch(err => {
+        dispatch(postVideogame(false))
+    })
+}
 
-export const getPlatforms = createAsyncThunk(GET_PT, async () => {
-    const { data } = await axios.get(`/platforms`);
-    return data
-})
+export const deletegame = (id) => (dispatch) => {
+    axios.delete(`/delete/${id}`).then(({ data }) => {
+        dispatch(deleteVideogame(true))
+    })
+}
 
-export const orderchange = createAction(ORDER_TYPE, payload => payload ? "" : payload)
-
-export const saveName = createAction(SAVENAME, payload => payload)
-
-export const savePage = createAction(PAG_UPDATE, payload => payload)
-
-export const updateGame = createAsyncThunk(UPDATE_GAME, async (id, input) => {
-    const { data } = await axios.put(`/update/${id}`, input)
-    return data
-})
-
-export const deletegame = createAsyncThunk(DELETE_GAME, async (id) => {
-    const { data } = await axios.delete(`/delete/${id}`)
-    return data
-})
-
-export const filterandorder = createAsyncThunk(FILT_AND_ORDER, async (filters) => {
-    try {
-        const { data } = await axios.post(`/filtandorder`, filters)
-        return data
-    } catch (error) {
-        return []
-    }
-})
-
-export const orderVideogamesByName = createAction(ORD_BYNM, payload => payload)
+export const filterandorder = (filters) => (dispatch) => {
+    axios.post(`/filtandorder`, filters).then(({ data }) => {
+        dispatch(filandord(data))
+    }).catch(() => {
+        dispatch(filandord([]))
+    })
+}
