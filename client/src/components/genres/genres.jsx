@@ -1,20 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { getGenres } from "../../redux-toolkit/actions";
-import { fetchallGenres } from "../../redux-toolkit/slices";
+import { getGenres } from "../../redux-toolkit/slices/genres.slice";
+import { getVideogames } from "../../redux-toolkit/slices/videogames.slice"
 
 const Genres = () => {
-  const genres = useSelector((state) => state.list);
-  const loading = useSelector((state) => state.loading);
+  const genres = useSelector(({ genres }) => genres.list);
+  const loading = useSelector(({ genres }) => genres.loading);
+  // const games = useSelector(({ videogames }) => videogames.allVideogames)
+  
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchallGenres());
-    // eslint-disable-next-line
+    dispatch(getGenres());
+    dispatch(getVideogames());
+
   }, [dispatch]);
 
   const dispatchgenres = (e) => {
     e.preventDefault();
-    dispatch(fetchallGenres());
+    dispatch(getGenres());
   };
 
 
