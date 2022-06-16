@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
-const videogames = createSlice({
+export const videogamesSlice = createSlice({
     name: "videogames",
     initialState: {
         allVideogames: [],
@@ -85,10 +84,6 @@ const videogames = createSlice({
     }
 })
 
-
-
-export default videogames.reducer
-
 export const {
     saveVideogames,
     idvideogame,
@@ -98,52 +93,6 @@ export const {
     deleteVideogame,
     filandord,
     orderVideogamesByName
-} = videogames.actions
+} = videogamesSlice.actions
 
-//todo: actions
-export const getVideogames = () => (dispatch) => {
-    axios.get(`/videogames`).then(({ data }) => {
-
-        dispatch(saveVideogames(data))
-    }).catch(err => {
-        dispatch(saveVideogames(['error']))
-    });
-}
-
-export const getVideogameById = (id) => (dispatch) => {
-    if (!id) dispatch(idvideogame(undefined))
-    axios.get(`/videogames/${id}`).then(({ data }) => {
-        if (data) dispatch(idvideogame(data))
-        else return null
-    }).catch(err => err)
-}
-// !trello
-export const postVideogame = (data) => (dispatch) => {
-    axios.post(`/videogame`, data).then(({ data }) => {
-        dispatch(postvideogame(true))
-        return
-    }).catch(err => {
-        dispatch(postVideogame(false))
-    })
-}
-//!manejo de errores
-export const updateGame = (id, input) => (dispatch) => {
-    axios.put(`/update/${id}`, input).then(({ data }) => {
-        dispatch(putVideogame(true))
-    }).catch(err => {
-        dispatch(postVideogame(false))
-    })
-}
-export const deletegame = (id) => (dispatch) => {
-    axios.delete(`/delete/${id}`).then(({ data }) => {
-        dispatch(deleteVideogame(true))
-    })
-}
-
-export const filterandorder = (filters) => (dispatch) => {
-    axios.post(`/filtandorder`, filters).then(({ data }) => {
-        dispatch(filandord(data))
-    }).catch(() => {
-        dispatch(filandord([]))
-    })
-}
+export default videogamesSlice.reducer

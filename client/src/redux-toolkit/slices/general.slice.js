@@ -20,6 +20,4 @@ export const generalSilce = createSlice({
     }
 });
 
-export const { saveName, orderchange, savePage } = generalSilce.actions
-
 export default generalSilce.reducer

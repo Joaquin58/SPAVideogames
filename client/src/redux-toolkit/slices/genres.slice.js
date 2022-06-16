@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import axios from "axios";
-
 export const genresSlice = createSlice({
     name: "genres",
     initialState: {
@@ -10,7 +8,7 @@ export const genresSlice = createSlice({
     },
     reducers: {
         getAllGenres: (state, action) => {
-            state.list = action.payload
+            state.genres = action.payload
             state.loading = false
         },
 
@@ -20,9 +18,3 @@ export const genresSlice = createSlice({
 export const { getAllGenres } = genresSlice.actions
 
 export default genresSlice.reducer;
-
-export const getGenres = () => (dispatch) => {
-    axios.get(`/genres`).then(({ data }) => {
-        dispatch(getAllGenres(data))
-    }).catch(err => console.log(err))
-}
