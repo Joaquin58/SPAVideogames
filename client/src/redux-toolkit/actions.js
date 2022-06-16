@@ -55,7 +55,7 @@ export const postVideogame = createAsyncThunk(POST_VG, async (body) => {
 export const orderVideogamesByRaiting = createAction(ORD_BYRT, payload => payload)
 
 export const getPlatforms = createAsyncThunk(GET_PT, async () => {
-    const { data } = await axios.get(`/platfoms`);
+    const { data } = await axios.get(`/platforms`);
     return data
 })
 

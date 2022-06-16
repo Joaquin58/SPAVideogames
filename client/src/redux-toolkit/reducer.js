@@ -33,7 +33,7 @@ export const initialState = {
 const rootReducer = createReducer(initialState, builder =>
     builder
         .addCase(getVideogames.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 videogames: payload,
                 allVideogames: payload,
@@ -41,14 +41,14 @@ const rootReducer = createReducer(initialState, builder =>
             }
         })
         .addCase(getGenres.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 loading: false,
                 genres: payload
             }
         })
         .addCase(getVideogameById.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 idvideogame: payload
             }
@@ -73,52 +73,52 @@ const rootReducer = createReducer(initialState, builder =>
 
                 return 0;
             }) : state.videogames
-            return {
+            state = {
                 ...state,
                 videogames: ratingorder
             }
         })
         .addCase(postVideogame.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state
             }
         })
         .addCase(getPlatforms.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 plataformas: payload
             }
         })
         .addCase(saveName, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 savename: payload
             }
         })
         .addCase(orderchange, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 ordertype: payload
             }
         })
         .addCase(savePage, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 statePag: payload
             }
         })
         .addCase(updateGame.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state
             }
         })
         .addCase(deletegame.fulfilled, (state, { payload }) => {
-            return {
+            state = {
                 ...state
             }
         })
         .addCase(filterandorder, (state, { payload }) => {
-            return {
+            state = {
                 ...state,
                 videogames: payload
             }
@@ -148,12 +148,12 @@ const rootReducer = createReducer(initialState, builder =>
                     }
                     return 0;
                 }) : state.videogames
-            return {
+            state = {
                 ...state, videogames: nameorder
             }
         })
         .addDefaultCase((state, { payload }) => {
-            return state
+            state
         })
 
 )
