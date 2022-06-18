@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { savePage } from '../../redux/actions.js'
+import { savePage } from '../../redux-toolkit/actions.js'
 import PaginadoStyles from '../Paginado/Paginado.module.css'
 
 export default function Paginado({ videogamesForPage, allvideogames, paginado, currentPage }) {
 
     //!cambiar el estilo de la paginacion para que sean proporcionales los espacios ebtre ellos
     const dispatch = useDispatch()
-    const state = useSelector(state => state.statePag)
+    const state = useSelector(({general}) => general.statePag)
 
     const hundleActive = (e) => {
         e.preventDefault()

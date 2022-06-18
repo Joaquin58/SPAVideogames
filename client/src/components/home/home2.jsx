@@ -31,12 +31,9 @@ export default function Home() {
 
     const dispatch = useDispatch()
 
-    // const navigate = Navigate()
-    const allVideogames = useSelector((state) => state.videogames)
-    const Videogames = useSelector((state) => state.allVideogames)
-    // const name = useSelector(state => state.savename)
-    const allGenres = useSelector(state => state.genres)
-    // const order = useSelector(state => state.ordertype)
+    const allVideogames = useSelector(({ videogames }) => videogames.videogames)
+    const Videogames = useSelector(({ videogames }) => videogames.allVideogames)
+    const allGenres = useSelector(({ genres }) => genres.genres)
     //*--- Estados Locales ---*
     const [CuerrentPage, setCurrentPage] = useState(1)
     const [VideogamesforPage] = useState(15)
@@ -60,21 +57,13 @@ export default function Home() {
     const paginado = (pageNumber) => setCurrentPage(pageNumber)
 
 
-
+    //!vaciar el estado de todos los videojuegos al salir del componente
     useEffect(() => {
-        async function fetchdata() {
-
-            dispatch(getVideogames())
-            dispatch(getGenres())
-            dispatch(saveName(''))
-            dispatch(savePage(''))
-
-        }
-        fetchdata()
-            .then()
-            .catch(err => console.error(err))
-        // eslint-disable-next-line
-    }, [])
+        dispatch(getVideogames())
+        dispatch(getGenres())
+        dispatch(saveName(''))
+        dispatch(savePage(''))
+    }, [dispatch])
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -151,9 +140,11 @@ export default function Home() {
             rating: "Ordena por rating",
             name: ''
         })
-        // dispatch(getVideogames())
-        // setCurrentPage(1)
-        // dispatch(savePage('1'))
+        /*
+        dispatch(getVideogames())
+        setCurrentPage(1)
+        dispatch(savePage('1'))
+        */
 
     }
 
@@ -199,7 +190,7 @@ export default function Home() {
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
                             {/* <SearchBar setCurrentPage={setCurrentPage} /> */}
                             <form onSubmit={submitfilters} className={HomeStyles.form}>
-                                <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} />
+                                <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} submitfilters={submitfilters} />
                                 {/* <div className={HomeStyles.selecters}>
                                 <Filtexist handleFilterCreated={handleFilterCreated} value={filters.exist} setFilters={setFilters} />
                                 <Filtgenres allGenres={allGenres} allinone={allinone} value={filters.genres} />

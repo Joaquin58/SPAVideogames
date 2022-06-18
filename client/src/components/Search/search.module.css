@@ -72,6 +72,8 @@
     float: right;
     /* color: #22ffc0; */
     transition: 0.4s ease;
+    border: 0;
+    cursor: pointer;
 }
 
 .search_box:hover > .search_input, 

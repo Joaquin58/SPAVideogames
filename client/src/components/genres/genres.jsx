@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { getGenres } from "../../redux-toolkit/actions";
-import { getGenres } from "../../redux-toolkit/slices/genres.slice";
-import { getVideogames } from "../../redux-toolkit/slices/videogames.slice"
+import { getGenres, getVideogames } from "../../redux-toolkit/actions.js";
+// import { getVideogames } from "../../redux-toolkit/slices/videogames.slice"
 
 const Genres = () => {
   const genres = useSelector(({ genres }) => genres.list);
   const loading = useSelector(({ genres }) => genres.loading);
   // const games = useSelector(({ videogames }) => videogames.allVideogames)
-  
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGenres());

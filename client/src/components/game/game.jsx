@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom'
 import { 
     getVideogameById,
     deletegame
- } from '../../redux/actions'
+ } from '../../redux-toolkit/actions'
 import imagedefault from '../images/createdefault.jpg'
 import Loading from '../images/charge.gif'
 import gamestyles from './game.module.css'
@@ -13,7 +13,7 @@ const Game = () => {
 
     let { vgid } = useParams();
     const dispatch = useDispatch()
-    const idvideogame = useSelector(state => state.idvideogame)
+    const idvideogame = useSelector(({videogames}) => videogames.idvideogame)
 
     useEffect(() => {
         dispatch(getVideogameById(vgid))
