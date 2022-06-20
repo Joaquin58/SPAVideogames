@@ -33,7 +33,7 @@ export default function Anewvideogame() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const getgenres = useSelector(({ genres }) => genres.genres)
-    const Platfoms = useSelector(({ plataformas }) => plataformas.plataformas)
+    const Platfoms = useSelector(({ platforms }) => platforms.plataformas)
 
     const [input, setInput] = useState({
         name: '',
