@@ -27,7 +27,7 @@ export const getGenres = () => (dispatch) => {
 }
 
 export const getPlatforms = () => (dispatch) => {
-    axios.get(`/platfoms`).then(({ data }) => {
+    axios.get(`/platforms`).then(({ data }) => {
         dispatch(savePlatforms(data))
     }).catch(() => {
         dispatch(savePlatforms([]))
@@ -78,9 +78,20 @@ export const deletegame = (id) => (dispatch) => {
 }
 
 export const filterandorder = (filters) => (dispatch) => {
-    axios.post(`/filtandorder`, filters).then(({ data }) => {
-        dispatch(filandord(data))
-    }).catch(() => {
-        dispatch(filandord([]))
-    })
+    if (filters.name === '' && filters.status === "Filtra por existente o creado" && filters.genres === "Filtra por generos") {
+        let { alfabet } = filters
+        dispatch(orderVideogamesByName(alfabet))
+        let { rating } = filters
+        dispatch(orderVideogamesByRaiting(rating))
+    } else {
+        axios.post(`/filtandorder`, filters).then(({ data }) => {
+            dispatch(filandord(data))
+            let { alfabet } = filters
+            dispatch(orderVideogamesByName(alfabet))
+            let { rating } = filters
+            dispatch(orderVideogamesByRaiting(rating))
+        }).catch(() => {
+            dispatch(filandord('error'))
+        })
+    }
 }
