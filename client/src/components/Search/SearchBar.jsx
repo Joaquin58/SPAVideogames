@@ -4,12 +4,12 @@ import {
     // getVideogameByName,
     saveName,
     // savePage
-} from '../../redux/actions.js'
+} from '../../redux-toolkit/actions.js'
 import styles from './search.module.css'
 
-const SearchBar = ({ setCurrentPage, setFilters, filters }) => {
+const SearchBar = ({ setCurrentPage, setFilters, filters, submitfilters }) => {
     const dispatch = useDispatch()
-    const name = useSelector(state => state.savename)
+    const name = useSelector(({ general }) => general.savename)
 
     function handleSearch(e) {
         e.preventDefault()
@@ -25,15 +25,20 @@ const SearchBar = ({ setCurrentPage, setFilters, filters }) => {
     // }
     return (
         // <form className={styles.form} onSubmit={searchbyfilters}>
-        <>
-            <input className={styles.SearchBar} type='text'
-                placeholder="Navega por los juegos"
+        <div className={`${styles.search_box}`}>
+            <input className={styles.search_input} type='text'
+                placeholder="Search Here..."
                 value={name}
-                onChange={e => handleSearch(e)}
+                onChange={handleSearch}
                 name='name'
             />
-            <button className={styles.button} type="Submit">Buscar</button>
-        </>
+            <button className={styles.search_btn} onClick={submitfilters}>
+                <i className={`${styles.fas} ${styles.fa_search}`}></i>
+                {/* <img className={styles.fassrc} src={logo} alt="busqueda" /> */}
+
+            </button>
+            {/* <button className={styles.button} type="Submit">Buscar</button> */}
+        </div>
         // </form>
     )
 }

@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     postVideogame,
     getGenres,
     getPlatforms,
     updateGame
-} from '../../redux/actions'
+} from '../../redux-toolkit/actions'
 import addvgstyles from './addvg.module.css'
 const validateerrors = (input) => {
     let errors = {}
@@ -31,9 +31,9 @@ const validateerrors = (input) => {
 export default function Anewvideogame() {
     const { id } = useParams()
     const dispatch = useDispatch()
-    const history = useHistory()
-    const getgenres = useSelector(state => state.genres)
-    const Platfoms = useSelector(state => state.plataformas)
+    const navigate = useNavigate()
+    const getgenres = useSelector(({ genres }) => genres.genres)
+    const Platfoms = useSelector(({ platforms }) => platforms.plataformas)
 
     const [input, setInput] = useState({
         name: '',
@@ -155,7 +155,8 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            history.push(`/videogame/${id}`)
+            // history.push(`/videogame/${id}`)
+            navigate(`/videogame/${id}`,)
         } else {
             dispatch(postVideogame(input))
             alert('Videojuego agregado')
@@ -170,7 +171,7 @@ export default function Anewvideogame() {
                 genresid: [],
             })
             serErrors({})
-            history.push('/home')
+            navigate('/home')
         }
     }
     const enterinput = (e, ref) => {
@@ -259,7 +260,6 @@ export default function Anewvideogame() {
                     placeholder='Descripción del juego*'
                     className={addvgstyles.description}
                     id='description'
-                    onKeyDown={enterinput}
                     ref={inputdescription}
                 />
                 {errors.description ? (<p className={addvgstyles.error}>{errors.description}</p>) : delete errors.description}

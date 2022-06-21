@@ -8,7 +8,7 @@ const game = ({ id, image, name, genres }) => {
     return (
         <div className={cardstyles.caja}>
             <div className={cardstyles.box}>
-                <Link to={`/videogame/${id}`} >
+                <Link to={`../videogame/${id}`} >
                     <h5 className={cardstyles.tytle}>{name}</h5>
                     <img className={cardstyles.image} src={`${defaultimage}`} alt='Not found' />
                     <div className={cardstyles.genres}>

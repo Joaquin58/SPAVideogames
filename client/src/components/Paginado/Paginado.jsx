@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { savePage } from '../../redux/actions.js'
+import { savePage } from '../../redux-toolkit/actions.js'
 import PaginadoStyles from '../Paginado/Paginado.module.css'
 
 export default function Paginado({ videogamesForPage, allvideogames, paginado, currentPage }) {
 
     //!cambiar el estilo de la paginacion para que sean proporcionales los espacios ebtre ellos
     const dispatch = useDispatch()
-    const state = useSelector(state => state.statePag)
+    const state = useSelector(({general}) => general.statePag)
 
     const hundleActive = (e) => {
         e.preventDefault()
@@ -46,7 +46,10 @@ export default function Paginado({ videogamesForPage, allvideogames, paginado, c
             }
             <li>
                 <a href={`#?pag=${pageNumbers.length > 0 && lastPage > currentPage + 1 ? currentPage + 1 : currentPage }`}
-                    onClick={(e) => { paginado(pageNumbers.length > 0 && lastPage >= currentPage + 1 ? currentPage + 1 : currentPage ); hundleActive(e) }}
+                    onClick={(e) => { 
+                        paginado(pageNumbers.length > 0 && lastPage >= currentPage + 1 ? currentPage + 1 : currentPage );
+                        hundleActive(e) 
+                    }}
                     className={PaginadoStyles.next}
                     id={pageNumbers.length > 0 && lastPage >= currentPage + 1 ? currentPage + 1 : currentPage }
                 >Next</a>
