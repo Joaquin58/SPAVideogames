@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     filterVideogamesAndNameBk,
     filterVideogamesCreated
-} from '../../redux/actions'
+} from '../../redux-toolkit/actions'
 import styles from './filtro.module.css'
 const FiltroGenre = () => {
     const dispatch = useDispatch()
-    const allGenres = useSelector(state => state.genres)
-    const name = useSelector(state => state.savename)
+    const allGenres = useSelector(({ genres }) => genres.genres)
+    const name = useSelector(({ general }) => general.savename)
     function handleFilterGenres(e) {
         dispatch(filterVideogamesAndNameBk(name, '', e.target.value))
     }

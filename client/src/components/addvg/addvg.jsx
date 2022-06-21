@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate , useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     postVideogame,
     getGenres,
     getPlatforms,
     updateGame
-} from '../../redux/actions'
+} from '../../redux-toolkit/actions'
 import addvgstyles from './addvg.module.css'
 const validateerrors = (input) => {
     let errors = {}
@@ -32,8 +32,8 @@ export default function Anewvideogame() {
     const { id } = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const getgenres = useSelector(state => state.genres)
-    const Platfoms = useSelector(state => state.plataformas)
+    const getgenres = useSelector(({ genres }) => genres.genres)
+    const Platfoms = useSelector(({ platforms }) => platforms.plataformas)
 
     const [input, setInput] = useState({
         name: '',
