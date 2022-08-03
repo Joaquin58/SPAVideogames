@@ -5,6 +5,7 @@ import Home2 from './components/home/home2.jsx'
 import Game from './components/game/game.jsx'
 import Addvg from './components/addvg/addvg.jsx'
 import Genres from './components/genres/genres';
+import RenderCards from './components/rendercards/rendercards';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path='videogame/:vgid' element={<Game />} />  {/* ruta detalles del juego */}
           <Route path='makevideogame' element={<Addvg />} />
           <Route path='editgame/:id' element={<Addvg />} />
-          <Route path='genres' element={<Genres />} />
+          <Route path='genres' element={<Genres />} /> {/* ! eliminar esta ruta */}
+          <Route path='card-dev' element={<RenderCards />} />
         </Routes>
       </BrowserRouter>
     </div>
