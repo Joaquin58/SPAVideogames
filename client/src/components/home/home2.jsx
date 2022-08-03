@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, /*Navigate*/ } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     getVideogames,
     getGenres,
-    // orderVideogamesByRaiting,
-    // orderVideogamesByName
-    // filterVideogamesCreated,
-    // filterVideogamesAndNameBk,
     orderchange,
     saveName,
     savePage,
@@ -20,12 +16,10 @@ import Loading from '../images/charge.gif'
 import NotFound from '../images/gameovertransparent.png'
 import NotResults from '../images/not-found-icon-15.jpg'
 import HomeStyles from '../home/home.module.css'
-// import Searchstyle from '../Search/search.module.css'
 import Filtexist from "../Filtro/Filtexist.jsx";
 import Filtgenres from "../Filtro/Filtgenres.jsx";
 import Orderalfabet from "../Filtro/Orderalfabet.jsx";
 import Orderrating from "../Filtro/Orderrating.jsx";
-// import { promisify } from 'util'
 
 export default function Home() {
 
@@ -78,58 +72,6 @@ export default function Home() {
         setCurrentPage(1)
         dispatch(savePage('1'))
     }
-    /*
-        function handleOrderAlfabet(e) {
-            e.preventDefault()
-            setCurrentPage(1)
-            dispatch(savePage('1'))
-            dispatch(orderchange(e.target.value))
-            dispatch(filterVideogamesAndNameBk(name, e.target.value))
-            setFilters({
-                ...filters,
-                alfabet: e.target.value,
-                rating: "Ordena por rating"
-            })
-        }
-    
-        function handleOrderRating(e) {
-            e.preventDefault()
-            setCurrentPage(1)
-            dispatch(savePage('1'))
-            // dispatch(orderVideogamesByRaiting(e.target.value))
-            //modifica el estado local para que se renderize por un cambio
-            setOrden(`Ordenado ${e.target.value}`)
-            setFilters({
-                ...filters,
-                rating: e.target.value,
-                alfabet: 'Orden alfabetico',
-            })
-        }
-    
-        function handleFilterCreated(e) {
-            setCurrentPage(1)
-            dispatch(savePage('1'))
-            dispatch(filterVideogamesCreated(e.target.value))
-            setFilters({
-                ...filters,
-                exist: e.target.value,
-                genres: "Filtra por generos",
-                alfabet: 'Orden alfabetico',
-                rating: "Ordena por rating"
-            })
-        }
-    
-        function allinone(e) {
-            setCurrentPage(1)
-            dispatch(savePage('1'))
-            dispatch(filterVideogamesAndNameBk(name, order, e.target.value))
-            setFilters({
-                ...filters,
-                exist: "Filtra por existente o creado",
-                genres: e.target.value
-            })
-        }
-    */
     function handleReset(e) {
         e.preventDefault()
         setFilters({
@@ -139,12 +81,6 @@ export default function Home() {
             alfabet: 'Orden alfabetico',
             rating: "Ordena por rating",
         })
-        /*
-        dispatch(getVideogames())
-        setCurrentPage(1)
-        dispatch(savePage('1'))
-        */
-
     }
 
     function searchbyfilters(e) {
@@ -162,10 +98,7 @@ export default function Home() {
             })
         }
     }
-    
-        
-        
-     
+
     function submitfilters(e) {
         e.preventDefault()
         dispatch(filterandorder(filters));
@@ -184,17 +117,8 @@ export default function Home() {
                             </Link>
                             <h1>Videogames</h1>
                             <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
-                            {/* <SearchBar setCurrentPage={setCurrentPage} /> */}
                             <form onSubmit={submitfilters} className={HomeStyles.form}>
                                 <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} submitfilters={submitfilters} />
-                                {/* <div className={HomeStyles.selecters}>
-                                <Filtexist handleFilterCreated={handleFilterCreated} value={filters.exist} setFilters={setFilters} />
-                                <Filtgenres allGenres={allGenres} allinone={allinone} value={filters.genres} />
-                                <Orderalfabet handleOrderAlfabet={handleOrderAlfabet} value={filters.alfabet} />
-                                <Orderrating handleOrderRating={handleOrderRating} value={filters.rating} />
-                                <button onClick={searchbyfilters}>filtrar</button>
-                            </div> */}
-
 
                                 <div className={HomeStyles.selecters}>
                                     <Filtexist handleFilterCreated={searchbyfilters} value={filters.status} />
