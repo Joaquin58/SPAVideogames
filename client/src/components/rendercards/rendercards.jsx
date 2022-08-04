@@ -11,8 +11,11 @@ const RenderCards = () => {
         dispatch(getVideogames())
     }, [dispatch])
     return (
-        <> {Array.isArray(Videogames) && Videogames.map((el) => <CardPage key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
-
+        <> {
+            Array.isArray(Videogames) && Videogames.length > 0 ?
+                Videogames.map((el) => <CardPage key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
+                :
+                <>loading...</>
         }
         </>
     )
