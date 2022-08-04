@@ -72,6 +72,7 @@ export default function Home() {
         setCurrentPage(1)
         dispatch(savePage('1'))
     }
+
     function handleReset(e) {
         e.preventDefault()
         setFilters({
@@ -138,9 +139,7 @@ export default function Home() {
                         />
                         <div className={HomeStyles.cards}>
                             {
-                                currentVideogames?.map((el) => {
-                                    return <Card key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />
-                                })
+                                currentVideogames?.map((el) => <Card key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
                             }
                         </div>
                         <>
