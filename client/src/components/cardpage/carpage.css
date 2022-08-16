@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
+/* 
 * {
     box-sizing: border-box;
-}
+} */
 
-body {
+/* body {
     background-color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
     display: flex;
@@ -13,7 +13,7 @@ body {
     height: 100vh;
     overflow: hidden;
     margin: 0;
-}
+} */
 
 img {
     max-width: 100%;
@@ -44,6 +44,7 @@ img {
 .card-title {
     height: 20px;
     margin: 0;
+    color: #000;
 }
 
 .card-excerpt {
