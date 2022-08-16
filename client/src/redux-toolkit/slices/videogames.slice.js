@@ -8,12 +8,14 @@ export const videogamesSlice = createSlice({
         idvideogame: [],
         postgame: false,
         putgame: false,
-        deletegame: false
+        deletegame: false,
+        loadinggames: true
     },
     reducers: {
         saveVideogames: (state, { payload }) => {
             state.allVideogames = payload
             state.videogames = payload
+            state.loadinggames = false
         },
         idvideogame: (state, { payload }) => {
             state.idvideogame = payload
