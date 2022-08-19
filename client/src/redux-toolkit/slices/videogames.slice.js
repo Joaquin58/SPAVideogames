@@ -82,6 +82,11 @@ export const videogamesSlice = createSlice({
 
             state.videogames = nameorder
 
+        },
+        killcomponent: (state, { payload }) => {
+            state.allVideogames = []
+            state.videogames = []
+            state.loadinggames = true
         }
     }
 })
@@ -94,7 +99,8 @@ export const {
     putVideogame,
     deleteVideogame,
     filandord,
-    orderVideogamesByName
+    orderVideogamesByName,
+    killcomponent
 } = videogamesSlice.actions
 
 export default videogamesSlice.reducer
