@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import imagedefault from '../images/createdefault.jpg'
@@ -14,19 +15,19 @@ function CardPage({ id, image, name, genres }) {
     const animated_bgs = useRef('.animated-bg')
 
     const loader = useSelector(({ videogames }) => videogames.loadinggames)
-    //!controloar la animacion de carga con un loader
+    //! controloar la animacion de carga con un loader
     var defaultimage = image === null || image === undefined || image.length === 0 ? imagedefault : image
 
     return (
         <Link to={`../videogame/${id}`}>
             <div className="card">
-                <div className={loader ? "card-header animated-bg" : "card-header"} id="header" ref={header}>{defaultimage ? <img src={`${defaultimage}`} alt="" loading="lazy" /> : "&nbsp;"}</div>
+                <div className={loader ? "card-header animated-bg" : "card-header"} id="header" ref={header}>{!loader ? <img src={`${defaultimage}`} alt="" loading="lazy" /> : "&nbsp;"}</div>
                 <div className="card-content">
-                    <h3 className={loader ? "card-title animated-bg animated-bg-text" : "card-title"} id="title" ref={title}>
-                        {name ? name : "nbsp;"}
-                    </h3>
+                    {!loader ? <h3 className={loader ? "card-title animated-bg animated-bg-text" : "card-title"} id="title" ref={title}>
+                        {name}
+                    </h3> : <h3 className={loader ? "card-title animated-bg animated-bg-text" : "card-title"} id="title" ref={title}>&nbsp;</h3>}
                     <p className="card-excerpt" id="excerpt" ref={excerpt}>
-                        <>{genres?.map((g) => <span key={g}>{g} </span>) || "&nbsp;"}</>
+                        <>{genres?.map((g) => <span key={g}>{g} </span>) || <span>&nbsp;</span>}</>
                         <span className="animated-bg animated-bg-text" ref={animated_bgs}>&nbsp;</span>
                         <span className="animated-bg animated-bg-text" ref={animated_bgs}>&nbsp;</span>
                         <span className="animated-bg animated-bg-text" ref={animated_bgs}>&nbsp;</span>
