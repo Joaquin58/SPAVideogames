@@ -5,7 +5,8 @@ import CardPage from '../cardpage/cardpage'
 import { getVideogames, killcomponent } from '../../redux-toolkit/actions'
 import render from "./render.module.css"
 
-const RenderCards = () => {
+
+export default function RenderCards() {
     const dispatch = useDispatch()
     const allVideogames = useSelector(({ videogames }) => videogames.videogames)
     const Videogames = useSelector(({ videogames }) => videogames.allVideogames)
@@ -16,6 +17,7 @@ const RenderCards = () => {
         return dispatch(killcomponent())
     }, [dispatch])
 
+    const vg = Videogames.slice(0, 15)
 
     function _prerender() {
         let prerender = []
@@ -26,17 +28,17 @@ const RenderCards = () => {
     }
 
     return (
-        <>
-            <div className={render.flexbox}>
-                {
-                    !loader ?
-                        Videogames.map((el) => <CardPage key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
-                        :
-                        <>{_prerender()}</>
-                }
-            </div>
-        </>
+        <div className={render.flexbox}>
+            {
+                !loader ?
+                    vg.map((el) => <CardPage key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
+                    : <>{_prerender()}</>
+            }
+        </div>
     )
 }
 
-export default RenderCards
+
+
+
+
