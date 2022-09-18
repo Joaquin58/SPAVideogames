@@ -1,17 +1,20 @@
 
 require('dotenv').config();
-const { traertodo, traertodoBd } = require('../middlewares/allgames.js')
+const { traertodoBd } = require('../middlewares/allgames_DB.js')
 const { getByName, getByNameDb } = require('../middlewares/getByName');
-const parallel = require('../middlewares/parallel.js');
+const parallel = require('../middlewares/allgames_API.js');
 
 const allgames = async (req, res) => {
     const { name } = req.query
     try {
         if (!name) {
-            const allrequestApi = await parallel()
-            const allrequestBd = await traertodoBd()
-            const allrequest = [...allrequestBd, ...allrequestApi]
-            return res.status(200).json(allrequest)
+            const allrequestApi = parallel()
+            const allrequestBd = traertodoBd()
+            Promise.all([allrequestBd, allrequestApi]).then(([response1, response2]) => {
+                
+                return res.status(200).json([...response1,...response2])
+            })
+
         } else {
             const resultadosApi = await getByName(name)
             const nameBd = await getByNameDb(name)
@@ -21,6 +24,7 @@ const allgames = async (req, res) => {
             return res.status(200).json(resto)
         }
     } catch (error) {
+        console.log(error)
         res.status(500).json('error en allgames ' + error)
     }
 }
