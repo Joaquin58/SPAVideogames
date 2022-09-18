@@ -1,8 +1,8 @@
-const { traertodo, traertodoBd } = require('./allgames.js')
+const { traertodoBd } = require('./allgames_DB.js')
 const { getByName, getByNameDb } = require('./getByName')
 const filter = require('./filtros')
 const orderbyname = require('./ordenamiento')
-const parallel = require('./parallel.js')
+const parallel = require('./allgames_API.js')
 const filterexist = async (status) => {
 
     return status === 'Exist'
