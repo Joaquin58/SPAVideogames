@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import {
@@ -10,16 +10,18 @@ import {
     filterandorder,
 } from '../../redux-toolkit/actions.js'
 import SearchBar from "../Search/SearchBar.jsx";
-import Card from '../Card/card.jsx'
+// import Card from '../Card/card.jsx'
 import Paginado from '../Paginado/Paginado.jsx'
-import Loading from '../images/charge.gif'
-import NotFound from '../images/gameovertransparent.png'
+// import Loading from '../images/charge.gif'
+// import NotFound from '../images/gameovertransparent.png'
 import NotResults from '../images/not-found-icon-15.jpg'
 import HomeStyles from '../home/home.module.css'
 import Filtexist from "../Filtro/Filtexist.jsx";
 import Filtgenres from "../Filtro/Filtgenres.jsx";
 import Orderalfabet from "../Filtro/Orderalfabet.jsx";
 import Orderrating from "../Filtro/Orderrating.jsx";
+
+import RenderCards from "../rendercards/rendercards.jsx";
 
 export default function Home() {
 
@@ -110,54 +112,55 @@ export default function Home() {
     return (
         <>
             {
-                Array.isArray(allVideogames) && Videogames.length > 0 ?
+                // Array.isArray(allVideogames) && Videogames.length > 0 ?
+                <>
+                    <nav className={HomeStyles.nav}>
+                        <Link to={'../makevideogame'}>
+                            <button className={HomeStyles.buttonadd}>Agregar Videogame</button>
+                        </Link>
+                        <h1>Videogames</h1>
+                        <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
+                        <form onSubmit={submitfilters} className={HomeStyles.form}>
+                            <SearchBar
+                                setCurrentPage={setCurrentPage}
+                                searchbyfilters={searchbyfilters}
+                                setFilters={setFilters}
+                                filters={filters}
+                                submitfilters={submitfilters}
+                            />
+                            <div className={HomeStyles.selecters}>
+                                <Filtexist handleFilterCreated={searchbyfilters} value={filters.status} />
+                                <Filtgenres allGenres={allGenres} allinone={searchbyfilters} value={filters.genres} />
+                                <Orderalfabet handleOrderAlfabet={handelorders} value={filters.alfabet} />
+                                <Orderrating handleOrderRating={handelorders} value={filters.rating} />
+                                <button type="Submit" className={HomeStyles.buttonfilter}>filtrar</button>
+                            </div>
+                        </form>
+                        <button onClick={handleReset} className={HomeStyles.buttonreset}>Reset</button>
+                    </nav>
+                    <Paginado
+                        videogamesForPage={VideogamesforPage}
+                        allvideogames={allVideogames.length}
+                        paginado={paginado}
+                        currentPage={CuerrentPage}
+                    />
+                    <RenderCards current={currentVideogames} />
                     <>
-                        <nav className={HomeStyles.nav}>
-                            <Link to={'../makevideogame'}>
-                                <button className={HomeStyles.buttonadd}>Agregar Videogame</button>
-                            </Link>
-                            <h1>Videogames</h1>
-                            <button className={HomeStyles.button} onClick={e => handleClick(e)}>Recargar Juegos</button>
-                            <form onSubmit={submitfilters} className={HomeStyles.form}>
-                                <SearchBar setCurrentPage={setCurrentPage} searchbyfilters={searchbyfilters} setFilters={setFilters} filters={filters} submitfilters={submitfilters} />
-
-                                <div className={HomeStyles.selecters}>
-                                    <Filtexist handleFilterCreated={searchbyfilters} value={filters.status} />
-                                    <Filtgenres allGenres={allGenres} allinone={searchbyfilters} value={filters.genres} />
-                                    <Orderalfabet handleOrderAlfabet={handelorders} value={filters.alfabet} />
-                                    <Orderrating handleOrderRating={handelorders} value={filters.rating} />
-                                    <button type="Submit" className={HomeStyles.buttonfilter}>filtrar</button>
-                                </div>
-                            </form>
-                            <button onClick={handleReset} className={HomeStyles.buttonreset}>Reset</button>
-                        </nav>
-                        <Paginado
-                            videogamesForPage={VideogamesforPage}
-                            allvideogames={allVideogames.length}
-                            paginado={paginado}
-                            currentPage={CuerrentPage}
-                        />
-                        <div className={HomeStyles.cards}>
-                            {
-                                currentVideogames?.map((el) => <Card key={el.id} name={el.name} image={el.image} genres={el.genres} id={el.id} />)
-                            }
-                        </div>
-                        <>
-                            {allVideogames.length === 0 &&
-                                <>
-                                    <div className={HomeStyles.error}>No se encotró resultado</div>
-                                    <img src={`${NotResults}`} alt='notsearch' />
-                                </>
-                            }
-                        </>
+                        {Videogames.length === 0 &&
+                            <>
+                                <div className={HomeStyles.error}>No se encotró resultado</div>
+                                <img src={`${NotResults}`} alt='notsearch' />
+                            </>
+                        }
                     </>
-                    : Videogames.length === 0 ? <img className={HomeStyles.loading} src={`${Loading}`} alt='Loading...' />
-                        :
-                        <div>
-                            <div className={HomeStyles.error} >No se pudo realizar la consulta</div>
-                            <button className={HomeStyles.buttonhome} onClick={e => handleClick(e)}>HOME</button>
-                            <img src={`${NotFound}`} alt='Not data not found' />
-                        </div>
+                </>
+                // : Videogames.length === 0 ? <img className={HomeStyles.loading} src={`${Loading}`} alt='Loading...' />
+                //     :
+                //     <div>
+                //         <div className={HomeStyles.error} >No se pudo realizar la consulta</div>
+                //         <button className={HomeStyles.buttonhome} onClick={e => handleClick(e)}>HOME</button>
+                //         <img src={`${NotFound}`} alt='Not data not found' />
+                //     </div>
             }
         </>
     )
