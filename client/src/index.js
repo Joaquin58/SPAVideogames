@@ -9,7 +9,9 @@ import  store  from './redux-toolkit/store';
 import dotenv from 'dotenv'
 
 dotenv.config()
-
+if (module.hot && process.env.NODE_ENV !== "production"){
+  module.hot.accept()
+}
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 ReactDOM.render(
   <Provider store={store}>
