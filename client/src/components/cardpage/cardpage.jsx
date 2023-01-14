@@ -1,5 +1,4 @@
 import React, { useRef } from "react"
-import { useState } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import imagedefault from '../images/createdefault.jpg'
@@ -21,20 +20,25 @@ function CardPage({ id, image, name, genres }) {
     return (
         <Link to={`../videogame/${id}`}>
             <div className="card">
-                <div className={loader ? "card-header animated-bg" : "card-header"} id="header" ref={header}>{!loader ? <img src={`${defaultimage}`} alt="" loading="lazy" /> : "&nbsp;"}</div>
+                <div className={loader ? "card-header animated-bg" : "card-header"} id="header" ref={header}>{!loader ? <img src={`${defaultimage}`} alt="" loading="lazy" /> : <>&nbsp;</>}</div>
                 <div className="card-content">
                     {
                         !loader ?
                             <h3 className="card-title" id="title" ref={title}>
-                                {name}</h3>
+                                {name}
+                            </h3>
                             :
                             <h3 className="card-title animated-bg animated-bg-text" id="title" ref={title}>&nbsp;</h3>
                     }
                     <p className="card-excerpt" id="excerpt" ref={excerpt}>
-                        <span className={loader ? "animated-bg animated-bg-text" : "gentes-title"}>{genres?.map((g) => `${g} `) || <>&nbsp;</>} </span>
-                        {/* <span className={loader ? "animated-bg animated-bg-text" : ""} ref={animated_bgs}>&nbsp;</span>
-                        <span className={loader ? "animated-bg animated-bg-text" : ""} ref={animated_bgs}>&nbsp;</span>
-                        <span className={loader ? "animated-bg animated-bg-text" : ""} ref={animated_bgs}>&nbsp;</span> */}
+                        <span className={loader ? "animated-bg animated-bg-text" : "gentes-title"}>
+                            {
+                                genres?.map((g) => `${g} `) || <>&nbsp;</>
+                            }
+                        </span>
+                        <span className={loader ? "animated-bg animated-bg-text" : ""} >&nbsp;</span>
+                        <span className={loader ? "animated-bg animated-bg-text" : ""} >&nbsp;</span>
+                        <span className={loader ? "animated-bg animated-bg-text" : ""} >&nbsp;</span> 
                     </p>
                     {/* <div className="author">
                         <div className={loader ? "profile-img animated-bg": ""} id="profile_img" ref={profile_img}>&nbsp;</div>
