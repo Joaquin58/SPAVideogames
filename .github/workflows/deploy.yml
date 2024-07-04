@@ -29,12 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-<<<<<<< HEAD
-        working-directory: ./api
         run: "npm install"
-=======
-        run: "cd api & npm install"
->>>>>>> 6c61b45794a27a80fba75b1203cf2a15ba4fed2e
 
       - name: Build step
         run: "npm run start"
