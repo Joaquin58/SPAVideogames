@@ -38,5 +38,5 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "joaquinramr-spavideogam-60"
-          entrypoint: "api/index.js"
-          root: "/api"
+          entrypoint: "api"
+          root: "api"
