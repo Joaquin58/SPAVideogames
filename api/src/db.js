@@ -1,15 +1,18 @@
 require('dotenv').config();
-import "https://deno.land/x/dotenv/load.ts";
+import { config } from 'https://deno.land/x/dotenv/mod.ts';
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
-console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
-const PORT = Deno.env.get("PORT");
 
-console.log(`Server running on port ${PORT}`);
+const env = config();
+
+console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+
+console.log(env.DB_USER)
+
 let sequelize =
   process.env.NODE_ENV === "production"
     ? new Sequelize({
