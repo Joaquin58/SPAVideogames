@@ -36,7 +36,7 @@ jobs:
         run: "npm install --omit=dev"
 
       - name: Build step
-        run: "npm run start"
+        run: "npm run start --allow-env"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
