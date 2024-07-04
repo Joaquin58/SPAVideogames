@@ -7,9 +7,6 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, ENDPOINT_ID
 } = process.env;
 console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, ENDPOINT_ID  )
-const PORT = Deno.env.get("PORT");
-console.log(`Server running on port ${PORT}`);
-
 
 let sequelize =
   process.env.NODE_ENV === "production"
