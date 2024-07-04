@@ -33,7 +33,7 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "npm install"
+        run: "npm install --omit=dev"
 
       - name: Build step
         run: "npm run start"
