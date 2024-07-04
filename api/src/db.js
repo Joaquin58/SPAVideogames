@@ -7,9 +7,9 @@ const {
 } = process.env;
 
 let sequelize =
-process.env.NODE_ENV === "production"
-  ? new Sequelize ({
-      database: PGDATABASE,
+  process.env.NODE_ENV === "production"
+    ? new Sequelize({
+      database: DB_NAME,
       dialect: "postgres",
       host: PGHOST,
       port: PGPORT,
@@ -19,7 +19,7 @@ process.env.NODE_ENV === "production"
         max: 3,
         min: 1,
         idle: 10000,
-     },
+      },
       dialectOptions: {
         ssl: {
           require: true,
@@ -27,12 +27,13 @@ process.env.NODE_ENV === "production"
           rejectUnauthorized: false,
         },
         keepAlive: true,
+
       },
       ssl: true,
     })
-   : new Sequelize(
-      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`,
-       { logging: false, native: false }
+    : new Sequelize(
+      `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=require`,
+      { logging: false, native: false }
     );
 
 // const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
@@ -63,8 +64,8 @@ const { Videogame, Genre } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Videogame.belongsToMany(Genre,{through:'VideogameGenre',  timestamps: false})
-Genre.belongsToMany(Videogame,{through:'VideogameGenre', timestamps: false})
+Videogame.belongsToMany(Genre, { through: 'VideogameGenre', timestamps: false })
+Genre.belongsToMany(Videogame, { through: 'VideogameGenre', timestamps: false })
 
 // Videogame.addGenre()`
 // Videogame.getGenders()
