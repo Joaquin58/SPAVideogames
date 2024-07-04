@@ -1,5 +1,5 @@
 require('dotenv').config();
-import { config } from 'https://deno.land/x/dotenv/mod.ts';
+const { config } = require('https://deno.land/x/dotenv/mod.ts');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
