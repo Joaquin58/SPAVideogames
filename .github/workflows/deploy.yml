@@ -4,11 +4,7 @@ on:
     branches: master
   pull_request:
     branches: master
-    
-defaults:
-  run:
-   working-directory: ./api
-   
+
 jobs:
   deploy:
     name: Deploy
@@ -31,10 +27,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      
+
       - name: Install step
         run: "npm install"
-        
 
       - name: Build step
         run: "npm run start"
