@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+import "https://deno.land/x/dotenv/load.ts";
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
