@@ -32,11 +32,11 @@ jobs:
         run: "npm install"
 
       - name: Build step
-        run: "npm run "
+        run: "npm run start"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "joaquinramr-spavideogam-60"
-          entrypoint: "index,js"
-          root: "/"
+          entrypoint: ""
+          root: "/api"
