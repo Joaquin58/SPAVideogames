@@ -1,5 +1,4 @@
 require('dotenv').config();
-const { config } = require('https://deno.land/x/dotenv/mod.ts');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -7,11 +6,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
 
-const env = config();
-
 console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
-
-console.log(env.DB_USER)
 
 let sequelize =
   process.env.NODE_ENV === "production"
