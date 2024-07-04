@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  PGUSER, PGPASSWORD, PGHOST, PGDATABASE, PGPORT
+  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME,
 } = process.env;
 
 let sequelize =
