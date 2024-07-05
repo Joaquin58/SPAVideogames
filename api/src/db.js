@@ -6,7 +6,7 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
 
-console.log(process.env)
+console.log(process.env.GITHUB_ENV)
 
 let sequelize =
   process.env.NODE_ENV === "production"
