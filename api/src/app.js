@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const routes = require('./routes/routes.js');
 const compression = require("compression")
 
-require('./db.js');
+// require('./db.js');
 
 const server = express();
 const cors = require('cors')
