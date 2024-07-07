@@ -5,10 +5,6 @@ on:
   pull_request:
     branches: master
 
-defaults:
-  run:
-   working-directory: ./api
-   
 jobs:
   deploy:
     name: Deploy
@@ -33,21 +29,14 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "npm install --omit=dev"
+        run: "cd api \\ npm install --omit=dev"
 
       - name: Build step
-        run: npm run start
-        env:
-          API_KEY: ${{secrets.API_KEY}}
-          DB_HOST: ${{secrets.DB_HOST}}
-          DB_NAME: ${{secrets.DB_NAME}}
-          DB_USER: ${{secrets.DB_USER}}
-          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-          NODE_ENV: ${{secrets.NODE_ENV}}
-          
+        run: "npm run start"
+
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "joaquinramr-spavideogam-60"
-          entrypoint: ""
+          entrypoint: "deploy/api"
           root: "api"
