@@ -29,7 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "cd /api && ls -al && npm install --omit=dev"
+        run: " cd api/ && npm install"
 
       - name: Build step
         run: "npm run start"
