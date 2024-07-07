@@ -35,7 +35,12 @@ jobs:
       - name: Install step
         run: "npm install --omit=dev"
         env:
-          API_KEY: ${{vars.API_KEY}}
+          API_KEY: ${{secrets.API_KEY}}
+          DB_HOST: ${{secrets.DB_HOST}}
+          DB_NAME: ${{secrets.DB_NAME}}
+          DB_USER: ${{secrets.DB_USER}}
+          DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+          NODE_ENV: ${{secrets.NODE_ENV}}
 
       - name: Build step
         run: "npm run start"
