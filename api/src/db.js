@@ -26,8 +26,7 @@ let sequelize =
           // Ref.: https://github.com/brianc/node-postgres/issues/2009
           rejectUnauthorized: false,
         },
-        keepAlive: true,
-        project: ENDPOINT_ID
+        keepAlive: true
       },
       ssl: true,
     })
