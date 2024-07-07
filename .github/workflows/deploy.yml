@@ -29,10 +29,10 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: " cd api/&& ls -al"
+        run: " cd api/ && npm install"
 
       - name: Build step
-        run: "npm run start"
+        run: " cd api/ && npm run start"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
