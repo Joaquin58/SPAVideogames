@@ -4,7 +4,11 @@ on:
     branches: master
   pull_request:
     branches: master
-
+    
+defaults:
+  run:
+   working-directory: ./api
+   
 jobs:
   build:
     runs-on: self-hosted
