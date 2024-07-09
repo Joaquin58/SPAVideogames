@@ -18,8 +18,7 @@ jobs:
         node-version: [20.x]
         
     steps:
-    - name: check dirrectory
-      run: ls -al && cd api/
+    
     - uses: actions/checkout@v4  
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
