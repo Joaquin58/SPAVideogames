@@ -21,14 +21,20 @@ jobs:
     - name: Clone repository
       uses: actions/checkout@v4 
     
-    - name: Use Node.js ${{ matrix.node-version }}      
+    # - name: Use Node.js ${{ matrix.node-version }}      
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    #     cache-dependency-path: '**/package-lock.json'
+    - name: Install Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: '**/package-lock.json'
-        
-    - run: npm ci
+        node-version: lts/*
+          
+    - name: install step
+      run: npm ci
+      
     - run: |
         touch .env 
         echo "${{ secrets.PROD_ENV_FILE }}" > .env
