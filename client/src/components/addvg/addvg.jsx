@@ -177,9 +177,8 @@ export default function Anewvideogame() {
     const enterinput = (e, ref) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            ref?.current.focus()
+            ref.current.focus()
         }
-        return
     }
 
     return (

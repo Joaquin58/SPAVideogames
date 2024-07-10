@@ -7,8 +7,8 @@ const Orderrating = ({ handleOrderRating, value }) => {
         <select className={HomeStyles.select} value={value} onChange={handleOrderRating} name='rating'>
             <optgroup label="Ordena por rating">
                 <option value='Ordena por rating' disabled hidden>Ordena por rating</option>
-                <option value='max'>🔼Mayor</option>
-                <option value='min'>🔽Menor</option>
+                <option value='max'><span role='img' aria-label="up-arrow">🔼</span>Mayor</option>
+                <option value='min'><span role='img' aria-label="down-arrow">🔽</span>Menor</option>
             </optgroup>
         </select>
     )
