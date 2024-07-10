@@ -1,19 +1,14 @@
 require('dotenv').config();
-
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, ENDPOINT_ID
 } = process.env;
-console.log(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, ENDPOINT_ID  )
-const PORT = Deno.env.get("PORT");
-console.log(`Server running on port ${PORT}`);
-
 
 let sequelize =
   process.env.NODE_ENV === "production"
-    ? new Sequelize({
+    ? new Sequelize({ 
       database: DB_NAME,
       dialect: "postgres",
       host: DB_HOST,
@@ -36,7 +31,7 @@ let sequelize =
       },
       ssl: true,
     })
-    : new Sequelize(
+    :new Sequelize(
       `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=require`,
       { logging: false, native: false }
     );
