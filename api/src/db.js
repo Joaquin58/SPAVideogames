@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, ENDPOINT_ID
+  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
 
 let sequelize =
@@ -26,8 +26,7 @@ let sequelize =
           // Ref.: https://github.com/brianc/node-postgres/issues/2009
           rejectUnauthorized: false,
         },
-        keepAlive: true,
-        project: ENDPOINT_ID
+        keepAlive: true
       },
       ssl: true,
     })

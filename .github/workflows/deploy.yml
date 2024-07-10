@@ -1,46 +1,40 @@
-name: Deploy
+name: Node.js CI/CD  
 on:
   push:
     branches: master
   pull_request:
     branches: master
-
+    
 defaults:
   run:
    working-directory: ./api
+  
    
 jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-
-    permissions:
-      id-token: write # Needed for auth with Deno Deploy
-      contents: read # Needed to clone the repository
-
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [20.x]
+        
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-
-      - name: Install Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Install step
-        run: "npm install --omit=dev"
-
-      - name: Build step
-        run: "npm run start"
-
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: "joaquinramr-spavideogam-60"
-          entrypoint: ""
-          root: "api"
+    - name: Clone repository
+      uses: actions/checkout@v4 
+    
+    # - name: Use Node.js ${{ matrix.node-version }}      
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    #     cache-dependency-path: '**/package-lock.json'
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+          
+    - name: install step
+      run: npm i --omit=dev
+      
+    - run: |
+        touch .env 
+        echo "${{ secrets.PROD_ENV_FILE }}" > .env
