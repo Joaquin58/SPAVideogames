@@ -11,8 +11,8 @@ a {
     /* word-break: break-all; */
     font-size: medium;
     color: #fff;
-    text-shadow:
-        /* White glow */
+    /* text-shadow:
+        White glow
         0 0 7px #fff,
         0 0 10px #C33113,
         0 0 21px #C33113,
@@ -20,7 +20,7 @@ a {
         0 0 82px #ff2a00,
         0 0 92px #ff2a00,
         0 0 102px #ff2a00,
-        0 0 151px #ff2a00;
+        0 0 151px #ff2a00; */
 }
 
 h5 {
@@ -68,8 +68,8 @@ h5 {
 .contend p {
     padding: 0.168rem;
     color: #fff;
-    text-shadow:
-        /* White glow */
+    /* text-shadow:
+        White glow
         0 0 7px #fff,
         0 0 10px #fff,
 
@@ -77,6 +77,6 @@ h5 {
         0 0 82px #ff2a00,
         0 0 92px #ff2a00,
         0 0 102px #ff2a00,
-        0 0 151px #ff2a00;
+        0 0 151px #ff2a00; */
 
 }

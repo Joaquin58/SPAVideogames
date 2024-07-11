@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  text-decoration: none;
 }
 
 body {
@@ -10,8 +11,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* background:#28282B;     */
-  background-image: url(../images/clem-onojeghuo-kfoSKoWc9Gg-unsplash.jpg);
+  background-color:#28282B;    
+  /* background-image: url(../images/clem-onojeghuo-kfoSKoWc9Gg-unsplash.jpg); */
   background-repeat: no-repeat, repeat;
   background-size: cover;
   box-sizing: border-box;
@@ -27,7 +28,7 @@ body {
   justify-content: center;
   justify-items: center;
   color: #fff;
-  text-shadow:
+  /* text-shadow:
     0 0 7px #fff,
     0 0 10px #fff,
     0 0 21px #C33113,
@@ -35,14 +36,14 @@ body {
     0 0 82px #C33113,
     0 0 92px #ff2a00,
     0 0 102px #ff2a00,
-    0 0 151px #ff2a00;
+    0 0 151px #ff2a00; */
   padding: 2em;
   position: relative;
 }
 
 .nav a {
   color: #fff;
-  text-shadow:
+  /* text-shadow:
     0 0 7px #fff,
     0 0 10px #fff,
     0 0 21px #fff,
@@ -50,7 +51,7 @@ body {
     0 0 82px #ff2a00,
     0 0 92px #ff2a00,
     0 0 102px #ff2a00,
-    0 0 151px #ff2a00;
+    0 0 151px #ff2a00; */
 }
 
 .nav h1 {
@@ -71,12 +72,12 @@ body {
 .buttonreset {
   position: absolute;
   background: #ff2a00;
-  box-shadow:
+  /* box-shadow:
     0 0 .7rem #fff,
     0 0 .1rem #fff,
     0 0 .042rem #ff2a00,
     0 0 0.082rem #ff2a00,
-    0 0 0.92rem #ff2a00;
+    0 0 0.92rem #ff2a00; */
   border-radius: 10px;
   border-style: none;
   font-family: 'Montserrat', sans-serif;
@@ -115,15 +116,15 @@ body {
   font-weight: bold;
   font-size: 1em;
   color: rgb(248, 172, 122);
-  text-shadow:
+  /* text-shadow: */
     /* White glow */
-    0 0 7px #ff2a00,
-    0 0 10px #ff2a00,
-    0 0 42px #ff2a00,
-    0 0 82px #ff2a00,
-    0 0 92px #ff2a00,
-    0 0 102px #ff2a00,
-    0 0 151px #ff2a00;
+    /* 0 0 7px #ff2a00, */
+    /* 0 0 10px #ff2a00, */
+    /* 0 0 42px #ff2a00, */
+    /* 0 0 82px #ff2a00, */
+    /* 0 0 92px #ff2a00, */
+    /* 0 0 102px #ff2a00, */
+    /* 0 0 151px #ff2a00; */
   padding: 3em;
 }
 

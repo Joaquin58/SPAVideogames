@@ -18,7 +18,7 @@ export const {
     savePage
 } = generalSilce.actions
 
-export const { orderVideogamesByName, orderVideogamesByRaiting } = videogamesSlice.actions
+export const { orderVideogamesByName, orderVideogamesByRaiting, killcomponent } = videogamesSlice.actions
 
 export const getGenres = () => (dispatch) => {
     axios.get(`/genres`).then(({ data }) => {

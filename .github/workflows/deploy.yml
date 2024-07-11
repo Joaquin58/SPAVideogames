@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Deploy
 on:
   push:
@@ -40,3 +41,45 @@ jobs:
           project: "joaquinramr-spavideogam-60"
           entrypoint: ""
           root: "api"
+=======
+name: Node.js CI/CD  
+on:
+  push:
+    branches: master
+  pull_request:
+    branches: master
+    
+defaults:
+  run:
+   working-directory: ./api
+  
+   
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [20.x]
+        
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4 
+    
+    # - name: Use Node.js ${{ matrix.node-version }}      
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    #     cache: 'npm'
+    #     cache-dependency-path: '**/package-lock.json'
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+          
+    - name: install step
+      run: npm i --omit=dev
+      
+    - run: |
+        touch .env 
+        echo "${{ secrets.PROD_ENV_FILE }}" > .env
+>>>>>>> master

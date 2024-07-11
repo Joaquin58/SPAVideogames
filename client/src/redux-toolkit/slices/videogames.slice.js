@@ -8,12 +8,14 @@ export const videogamesSlice = createSlice({
         idvideogame: [],
         postgame: false,
         putgame: false,
-        deletegame: false
+        deletegame: false,
+        loadinggames: true
     },
     reducers: {
         saveVideogames: (state, { payload }) => {
             state.allVideogames = payload
             state.videogames = payload
+            state.loadinggames = false
         },
         idvideogame: (state, { payload }) => {
             state.idvideogame = payload
@@ -80,6 +82,11 @@ export const videogamesSlice = createSlice({
 
             state.videogames = nameorder
 
+        },
+        killcomponent: (state, { payload }) => {
+            state.allVideogames = []
+            state.videogames = []
+            state.loadinggames = true
         }
     }
 })
@@ -92,7 +99,8 @@ export const {
     putVideogame,
     deleteVideogame,
     filandord,
-    orderVideogamesByName
+    orderVideogamesByName,
+    killcomponent
 } = videogamesSlice.actions
 
 export default videogamesSlice.reducer

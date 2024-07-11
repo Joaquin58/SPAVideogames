@@ -17,6 +17,9 @@ const Landing = () => {
                 <Link to='/home'>
                     <button className={landingstyles.button}>GET STARTED</button>
                 </Link>
+                <i className=''></i>
+                <i className=''></i>
+                <i className=''></i>
             </div>
         </div>
     )

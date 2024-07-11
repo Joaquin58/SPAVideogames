@@ -3,12 +3,12 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME,
+  DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
 } = process.env;
 
 let sequelize =
   process.env.NODE_ENV === "production"
-    ? new Sequelize({
+    ? new Sequelize({ 
       database: DB_NAME,
       dialect: "postgres",
       host: DB_HOST,
@@ -26,12 +26,11 @@ let sequelize =
           // Ref.: https://github.com/brianc/node-postgres/issues/2009
           rejectUnauthorized: false,
         },
-        keepAlive: true,
-
+        keepAlive: true
       },
       ssl: true,
     })
-    : new Sequelize(
+    :new Sequelize(
       `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?sslmode=require`,
       { logging: false, native: false }
     );
